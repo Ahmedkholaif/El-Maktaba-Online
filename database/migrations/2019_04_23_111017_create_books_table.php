@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->string('title');
             $table->text('description');
-            $table->binary('image');
+            $table->binary('image')->nullable();
             $table->integer('copies_number');
             $table->integer('fees_per_day');
             $table->timestamp('deleted_at')->nullable();

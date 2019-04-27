@@ -26,17 +26,13 @@
     <td scope="row" class="text-center"> {{$book->author}} </td>
     <td scope="row" class="text-center"> {{$book->copies_number}} </td>
     <td scope="row" class="text-center"> {{$book->fees_per_day}} </td>
-    <td scope="row" class="text-center"> <select  name="myselect[]" class="form-control edit-form" >
-        @foreach($categories as $category)
-            <option value=" {{$category->id }}"> {{$category->name}} </option>
-        @endforeach
-</select> </td>
-    
+  
+    <td></td>
     <td scope="row" class="text-center">  {{$book->description}} </td>
     <td scope="row" class="text-center"> @include('books.edit')</td>
 
     <td class="text-center">
-        <form method="post" action="">
+        <form method="post" action=" {{route('books.destroy', $book->id)}} ">
             {{ csrf_field() }}
             @method('delete')
             <button type="submit"  class="btn btn-danger">
@@ -51,7 +47,11 @@
 @endforeach
 </table>
 
-
+<!-- <select  name="myselect[]" class="form-control edit-form" >
+        @foreach($categories as $category)
+            <option value=" {{$category->id }}"> {{$category->name}} </option>
+        @endforeach
+</select> -->
 </div>
 
 @endsection

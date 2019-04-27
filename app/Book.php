@@ -27,4 +27,6 @@ class Book extends Model
     public function ratings () {
         return $this->hasMany('App\Rating');
     }
+
+    protected $fillable = ['title','author','description','copies_number','fees_per_day'];
 }

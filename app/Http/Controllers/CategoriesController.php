@@ -43,7 +43,7 @@ class CategoriesController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->save();
-       
+        return redirect()->route('category.index');
         
     }
 

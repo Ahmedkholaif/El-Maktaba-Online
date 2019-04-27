@@ -9,7 +9,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">New Book</h4>
       </div>
-      <form action="{{route('category.store')}}" method="post">
+      <form action="{{route('books.store')}}" method="post">
          @csrf
 	      <div class="modal-body">
                 <div class="form-group">
@@ -34,7 +34,7 @@
 
                 <div class="form-group">
 		        	<label for="title">Image</label>
-		        	<input type="file" class="form-control" name="fees_per_day" id="title">
+		        	<input type="file" class="form-control" name="image" id="title">
 	        	</div>
 
 	        	<div class="form-group">

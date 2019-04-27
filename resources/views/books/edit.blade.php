@@ -1,16 +1,17 @@
 <div style="margin-bottom:10px">
-<a href= ""class="btn btn-success" data-toggle="modal" data-target="#myModal"> <i class="fas fa-edit">  </i> Edit</a>
+<a href= " {{route('books.edit', $book->id)}} "class="btn btn-success" data-toggle="modal" data-target="#bookModal"> <i class="fas fa-edit">  </i> Edit</a>
 </div>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">New Book</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Book</h4>
       </div>
-      <form action="" method="post">
+      <form action=" {{route('books.update', $book->id)}} " method="post">
          @csrf
+         @method('put')
 	      <div class="modal-body">
                 <div class="form-group">
 		        	<label for="title">Title</label>
