@@ -27,4 +27,8 @@ class Book extends Model
     public function ratings () {
         return $this->hasMany('App\Rating');
     }
+
+    public function categories () {
+        return $this->belongsToMany('App\Category','book__categories');
+    }
 }

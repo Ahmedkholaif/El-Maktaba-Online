@@ -22,3 +22,8 @@ Route::resource('users', 'UsersController') ;//->middleware('auth');
 Route::resource('books', 'BooksController');//->middleware('auth');
 
 Route::resource('books.comments', 'CommentsController');//->middleware('auth');
+
+
+Route::get('/borrowed_books', 'BooksController@borrowedBooks')->name('borrowedBooks');
+Route::get('/favorite_books', 'BooksController@favoriteBooks')->name('favoriteBooks');
+Route::get('/admin/Borrowed_Books', 'UsersController@adminBorrowedBooks')->name('adminBorrowedBooks');

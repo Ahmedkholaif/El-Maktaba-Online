@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\User;
 use Illuminate\Http\Request;
+use App\Borrowed_Book;
+use App\Favourite_Book;
 
 class BooksController extends Controller
 {
@@ -14,7 +17,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -81,5 +84,18 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
         //
+    }
+
+
+    public function borrowedBooks()
+    {
+        $booksInfo = Borrowed_Book::get();
+        return view('user_borrowed_books',compact('booksInfo'));
+    }
+
+    public function favoriteBooks()
+    {
+        $booksInfo = Favourite_Book::get();
+        return view('user_favorite_books',compact('booksInfo','bool'));
     }
 }

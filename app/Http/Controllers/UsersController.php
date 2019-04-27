@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Borrowed_Book;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -81,5 +82,10 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+    public function adminBorrowedBooks()
+    {
+        $booksInfo = Borrowed_Book::get();
+        return view('admin_borrowed_books',compact('booksInfo'));
     }
 }
