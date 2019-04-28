@@ -52,9 +52,21 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
-    {
-        //
+    public function show( $bookid )
+    {   $book = Book::find($bookid);
+        // $comments = $book->comments();
+
+        // $data =array( 
+        //     'book' => $book,
+        //     'comments' => $comments);
+         
+
+        
+        
+
+        // $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
+
+        return view('books.show',compact('book'));
     }
 
     /**
