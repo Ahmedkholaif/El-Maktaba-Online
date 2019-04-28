@@ -15,7 +15,7 @@
                             <div class="name">
                                 <h1 class="title">{{$users->user_name}}</h1> 
                                 <h4 class="userinfo"> National ID: {{$users->national_id}}</h4>
-                                <h4 class="userinfo">Phone: {{$users->phone}}</h4>
+                                <h4 class="userinfo padding10">Phone: {{$users->phone}}</h4>
                                 
                             </div>
                         </div>
