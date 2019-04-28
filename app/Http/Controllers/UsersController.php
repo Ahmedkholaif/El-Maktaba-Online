@@ -22,6 +22,22 @@ class UsersController extends Controller
     }
 
     /**
+     * Display a specific user page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profile($id)
+    {
+        
+        // $users = User::orderBy('created_at','desc')->paginate(5);
+        
+        $users = User::find($id);
+        
+        return view('users.profile', compact(['users']));
+        
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
