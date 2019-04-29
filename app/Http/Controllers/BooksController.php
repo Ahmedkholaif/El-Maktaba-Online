@@ -66,19 +66,12 @@ class BooksController extends Controller
      */
     public function show( $bookid )
     {   $book = Book::find($bookid);
-        // $comments = $book->comments();
-
-        // $data =array( 
-        //     'book' => $book,
-        //     'comments' => $comments);
-         
-
-        
-        
+        $relatedBooks=Book::find($bookid)->categories()->first()->books()
+        ->where ('book_id', '!=',$bookid)->take(5)->get();     
 
         // $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
 
-        return view('books.show',compact('book'));
+        return view('books.show',compact('book', 'relatedBooks'));
     }
 
     /**

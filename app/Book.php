@@ -31,7 +31,7 @@ class Book extends Model
     }
 
     public function categories(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany('App\Category','book__categories');
     }
 
     protected $fillable = ['title','author','description','image','copies_number','fees_per_day'];
