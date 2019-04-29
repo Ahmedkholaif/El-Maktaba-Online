@@ -17,8 +17,8 @@ class BooksController extends Controller
     public function index()
     {
         $books = Book::all();
-        $categories = Category::all();
        
+        $categories = Category::all();
         return view('books.index', compact('books','categories'));
         // dd($categories);
         
@@ -31,7 +31,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -42,7 +42,19 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        Book::create($request->all());
+        // $path = $request->image->store('');
+        // dd($path);
+        // dd($request->categories_id);
+        $book = new Book();
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->image = $request->file('image')->store('bookImages','public');
+        $book->description = $request->description;
+        $book->copies_number = $request->copies_number;
+        $book->fees_per_day = $request->fees_per_day;
+        $book->save();
+        $book->categories()->attach($request->categories_id);
+        
         return redirect()->route('books.index');
     }
 
@@ -66,7 +78,9 @@ class BooksController extends Controller
     public function edit( $id)
     {
         $book = Book::find($id);
-        return view('books.edit', compact('book'));
+        $categories = Category::all();
+        dd($categories);
+        return view('books.edit', compact('book','categories'));
     }
 
     /**
@@ -83,7 +97,10 @@ class BooksController extends Controller
         $book->author = $request->author;
         $book->description = $request->description;
         $book->copies_number = $request->copies_number;
+        $book->image = $request->file('image')->store('bookImages','public');
         $book->fees_per_day = $request->fees_per_day;
+        $book->categories()->detach();
+        $book->categories()->attach($request->categories_id);
         $book->save();
         return redirect()->route('books.index');
 
