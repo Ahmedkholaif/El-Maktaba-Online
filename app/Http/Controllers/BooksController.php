@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use App\User;
+use App\Category;
+
 use Illuminate\Http\Request;
 use App\Borrowed_Book;
 use App\Favourite_Book;
@@ -17,6 +19,11 @@ class BooksController extends Controller
      */
     public function index()
     {
+        $books = Book::all();
+        $categories = Category::all();
+
+        return view('books.index', compact('books','categories'));
+        // dd($categories);
 
     }
 
@@ -83,7 +90,7 @@ class BooksController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        dd('hhhhh');
     }
 
 

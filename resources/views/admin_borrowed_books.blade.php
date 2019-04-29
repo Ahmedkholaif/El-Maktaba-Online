@@ -39,6 +39,7 @@
                             @endforeach
                         </tbody>
                       </table>
+
                       <div id="chartdiv"></div>
 
                 </div>
@@ -46,6 +47,7 @@
         </div>
         <div class="col-md-2"></div>
     </div>
+
     <script src="//www.amcharts.com/lib/4/core.js"></script>
     <script src="//www.amcharts.com/lib/4/charts.js"></script>
     <script>
@@ -79,11 +81,6 @@
     series.dataFields.categoryX = "week";
     series.dataFields.valueY = "income";
 
-
-
-    </script>
-
-    <script type="text/javascript">
 
 
     </script>

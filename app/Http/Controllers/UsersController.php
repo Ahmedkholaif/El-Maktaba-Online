@@ -15,7 +15,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        // $user = auth()->user();
+        // $contacts = Contact::orderBy('created_at','desc')->paginate(3);
+        $users = User::orderBy('created_at','desc')->paginate(5);
+        return view('users.index')-> with('users',$users);
+        // return $users;
     }
 
     /**
