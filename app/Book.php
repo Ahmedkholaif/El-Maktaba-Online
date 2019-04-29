@@ -30,9 +30,16 @@ class Book extends Model
         return $this->hasMany('App\Rating');
     }
 
+<<<<<<< HEAD
     public function categories(){
+=======
+    public function categories () {
+>>>>>>> 4e3e736685ef142e20f2c81511a5e37503d61fc6
         return $this->belongsToMany('App\Category','book__categories');
     }
+    // public function categories(){
+    //     return $this->belongsToMany(Category::class);
+    // }
 
     protected $fillable = ['title','author','description','image','copies_number','fees_per_day'];
 }
