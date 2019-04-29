@@ -80,7 +80,7 @@
      @endforeach   
        
         <small class="d-block text-right mt-3">
-          <a href="#">All comments</a>
+          <a href="{{ route('comments.index' , ['id' => $book->id]) }}">All comments</a>
         </small>
       </div>
       <div><h2>Related Books: </h2></div>

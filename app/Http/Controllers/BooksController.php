@@ -68,7 +68,9 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show( $bookid )
-    {   $book = Book::find($bookid);
+    {   
+        
+        $book = Book::find($bookid);
         $relatedBooks=Book::find($bookid)->categories()->first()->books()
         ->where ('book_id', '!=',$bookid)->take(5)->get();     
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Book;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -12,9 +13,10 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index($bookid)
+    {   $book = Book::find($bookid);
+        $comments = $book->comments ; 
+        return view('comments.index' , compact('book','comments'));
     }
 
     /**
