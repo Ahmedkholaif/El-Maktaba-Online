@@ -7,8 +7,9 @@
 
 <div class="box-body">
 <table class="table table-bordered table-hover" style="text-align=center">
+<thead class="thead-dark">
 <tr>
-<th scope="col" class="text-center" style="width: 10%"> Image </th>
+<th scope="col" class="text-center " style="width: 10%"> Image </th>
 <th scope="col" class="text-center" style="width: 10%"> Title </th>
 <th scope="col" class="text-center" style="width: 10%"> Author </th>
 <th scope="col" class="text-center" style="width: 10%"> Copies </th>
@@ -18,29 +19,29 @@
 <th scope="col" class="text-center" style="width: 22%">Description</th>
 <th scope="col" colspan='2' class="text-center" style="width: 18%">Actions</th>
 </tr>
-
+</thead>
 @foreach($books as $book)
 <tr>
-    <td scope="row" class="text-center"> {{$book->image}} </td>
-    <td scope="row" class="text-center"> {{$book->title}} </td>
-    <td scope="row" class="text-center"> {{$book->author}} </td>
-    <td scope="row" class="text-center"> {{$book->copies_number}} </td>
-    <td scope="row" class="text-center"> {{$book->fees_per_day}} </td>
-    <td scope="row" class="text-center"> <select  name="myselect[]" class="form-control edit-form" >
-        @foreach($categories as $category)
-            <option value=" {{$category->id }}"> {{$category->name}} </option>
+    <td scope="row" class="text-center align-middle"> <img src="{{asset('storage/'.$book->image)}}" style="height:100px;width:100px;"/> </td>
+    <td scope="row" class="text-center align-middle"> {{$book->title}} </td>
+    <td scope="row" class="text-center align-middle"> {{$book->author}} </td>
+    <td scope="row" class="text-center align-middle"> {{$book->copies_number}} </td>
+    <td scope="row" class="text-center align-middle"> {{$book->fees_per_day}} </td>
+  
+    <td scope="row" class="text-center align-middle">
+        @foreach($book->categories as $category)
+        <h5>{{ $category->name }}</h5>
         @endforeach
-</select> </td>
-    
-    <td scope="row" class="text-center">  {{$book->description}} </td>
-    <td scope="row" class="text-center"> @include('books.edit')</td>
+    </td>
+    <td scope="row" class="text-center align-middle">  {{$book->description}} </td>
+    <td scope="row" class="text-center align-middle"> @include('books.edit')</td>
 
-    <td class="text-center">
-        <form method="post" action="">
+    <td class="text-center align-middle">
+        <form method="post" action=" {{route('books.destroy', $book->id)}} ">
             {{ csrf_field() }}
             @method('delete')
-            <button type="submit"  class="btn btn-danger">
-            <i class="fas fa-trash"></i>
+            <button type="submit"  class="btn btn-danger btn-md center-block ">
+            <i class="fas fa-trash" style=" vertical-align: middle;"></i>
             Delete
 
             </button>

@@ -9,7 +9,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">New Book</h4>
       </div>
-      <form action="{{route('category.store')}}" method="post">
+      <form action="{{route('books.store')}}" method="post" enctype="multipart/form-data">
          @csrf
 	      <div class="modal-body">
                 <div class="form-group">
@@ -24,18 +24,27 @@
 
                 <div class="form-group">
 		        	<label for="title"> Number of copies</label>
-		        	<input type="number" class="form-control" name="copies_number" id="title">
+		        	<input type="number" class="form-control" name="copies_number" id="">
 	        	</div>
 
                 <div class="form-group">
 		        	<label for="title">Fees/day</label>
-		        	<input type="number" class="form-control" name="fees_per_day" id="title">
+		        	<input type="number" class="form-control" name="fees_per_day" id="">
 	        	</div>
 
                 <div class="form-group">
 		        	<label for="title">Image</label>
-		        	<input type="file" class="form-control" name="fees_per_day" id="title">
+		        	<input type="file" class="form-control" name="image" id="">
 	        	</div>
+
+                <div class="form-group">
+                    <label for="title">Categories</label>
+                    <select  name="categories_id[]" class="form-control edit-form" multiple>
+                        @foreach($categories as $category)
+                            <option value=" {{$category->id }}"> {{$category->name}} </option>
+                        @endforeach
+                    </select>
+                </div>
 
 	        	<div class="form-group">
 	        		<label for="des">Description</label>

@@ -1,16 +1,17 @@
-<div style="margin-bottom:10px">
-<a href= ""class="btn btn-success" data-toggle="modal" data-target="#myModal"> <i class="fas fa-edit">  </i> Edit</a>
+<div >
+<button href= " {{route('books.edit', $book->id)}} "class="btn btn-success" data-toggle="modal" data-target="#bookModal"> <i class="fas fa-edit" style=" vertical-align: middle;">  </i> Edit</button>
 </div>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">New Book</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Book</h4>
       </div>
-      <form action="" method="post">
+      <form action=" {{route('books.update', $book->id)}} " method="post" enctype="multipart/form-data" >
          @csrf
+         @method('put')
 	      <div class="modal-body">
                 <div class="form-group">
 		        	<label for="title">Title</label>
@@ -19,23 +20,32 @@
 
                 <div class="form-group">
 		        	<label for="title">Author</label>
-		        	<input type="text" class="form-control" name="author" id="title"  value=" {{old('author',$book->author)}} " >
+		        	<input type="text" class="form-control" name="author" id=""  value=" {{old('author',$book->author)}} " >
 	        	</div>
 
                 <div class="form-group">
 		        	<label for="title"> Number of copies</label>
-		        	<input type="number" class="form-control" name="copies_number" id="title"  value = "{{old('copies_number',$book->copies_number)}} ">
+		        	<input type="number" class="form-control" name="copies_number" id=""  value = "{{old('copies_number',$book->copies_number)}} ">
 	        	</div>
 
                 <div class="form-group">
 		        	<label for="title">Fees/day</label>
-		        	<input type="number" class="form-control" name="fees_per_day" id="title" value = "{{old('fees_per_day',$book->fees_per_day)}} ">
+		        	<input type="number" class="form-control" name="fees_per_day" id="" value = "{{old('fees_per_day',$book->fees_per_day)}} ">
 	        	</div>
 
                 <div class="form-group">
 		        	<label for="title">Image</label>
-		        	<input type="file" class="form-control" name="image" id="title">
+		        	<input type="file" class="form-control" name="image" id="" value = "{{old('image',$book->fees_per_day)}} ">
 	        	</div>
+
+						<div class="form-group">
+                    <label for="title">Categories</label>
+                    <select  name="categories_id[]" class="form-control edit-form" multiple>
+												@foreach($categories as $category)
+                            <option value=" {{$category->id }}"> {{$category->name}} </option>
+                        @endforeach
+                    </select>
+                </div>
 
 	        	<div class="form-group">
 	        		<label for="des">Description</label>

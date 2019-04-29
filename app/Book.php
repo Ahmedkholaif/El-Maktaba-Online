@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use App\Rating;
 use App\Comment;
+use App\Category;
+
 
 class Book extends Model
 {
@@ -31,4 +33,9 @@ class Book extends Model
     public function categories () {
         return $this->belongsToMany('App\Category','book__categories');
     }
+    // public function categories(){
+    //     return $this->belongsToMany(Category::class);
+    // }
+
+    protected $fillable = ['title','author','description','image','copies_number','fees_per_day'];
 }

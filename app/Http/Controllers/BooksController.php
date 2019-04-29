@@ -20,8 +20,8 @@ class BooksController extends Controller
     public function index()
     {
         $books = Book::all();
-        $categories = Category::all();
 
+        $categories = Category::all();
         return view('books.index', compact('books','categories'));
         // dd($categories);
 
@@ -34,7 +34,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -45,7 +45,20 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $path = $request->image->store('');
+        // dd($path);
+        // dd($request->categories_id);
+        $book = new Book();
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->image = $request->file('image')->store('bookImages','public');
+        $book->description = $request->description;
+        $book->copies_number = $request->copies_number;
+        $book->fees_per_day = $request->fees_per_day;
+        $book->save();
+        $book->categories()->attach($request->categories_id);
+
+        return redirect()->route('books.index');
     }
 
     /**
@@ -54,9 +67,21 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
-    {
-        //
+    public function show( $bookid )
+    {   $book = Book::find($bookid);
+        // $comments = $book->comments();
+
+        // $data =array(
+        //     'book' => $book,
+        //     'comments' => $comments);
+
+
+
+
+
+        // $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
+
+        return view('books.show',compact('book'));
     }
 
     /**
@@ -65,9 +90,12 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit( $id)
     {
-        //
+        $book = Book::find($id);
+        $categories = Category::all();
+        dd($categories);
+        return view('books.edit', compact('book','categories'));
     }
 
     /**
@@ -77,9 +105,20 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request,  $id)
     {
-        //
+        $book = Book::find($id);
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->description = $request->description;
+        $book->copies_number = $request->copies_number;
+        $book->image = $request->file('image')->store('bookImages','public');
+        $book->fees_per_day = $request->fees_per_day;
+        $book->categories()->detach();
+        $book->categories()->attach($request->categories_id);
+        $book->save();
+        return redirect()->route('books.index');
+
     }
 
     /**
@@ -88,9 +127,10 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy( $id)
     {
-        dd('hhhhh');
+        Book::find($id)->delete();
+        return redirect()->route('books.index');
     }
 
 
