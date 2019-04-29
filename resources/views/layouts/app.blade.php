@@ -30,10 +30,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<<<<<<< HEAD
-=======
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
->>>>>>> 5bbebcb218d4ed498f18a910820c723954a4aed8
 </head>
 <body>
     <div id="app">
@@ -57,22 +53,14 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-<<<<<<< HEAD
                             {{-- <li class="nav-item">
-=======
-                            <li class="nav-item">
->>>>>>> 5bbebcb218d4ed498f18a910820c723954a4aed8
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-<<<<<<< HEAD
                             @endif --}}
-=======
-                            @endif
->>>>>>> 5bbebcb218d4ed498f18a910820c723954a4aed8
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -100,13 +88,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-<<<<<<< HEAD
     </div>
-=======
-
-
-    </div>
-
->>>>>>> 5bbebcb218d4ed498f18a910820c723954a4aed8
 </body>
 </html>
