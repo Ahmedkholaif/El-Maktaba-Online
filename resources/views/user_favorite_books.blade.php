@@ -16,8 +16,7 @@
                             <th scope="col">Description</th>
                             <th scope="col">Categories</th>
                             <th scope="col">Image</th>
-                            <th scope="col">Borrowing days</th>
-                            <th scope="col">Fees per day</th>
+                            <th scope="col">Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -27,23 +26,26 @@
                                 <td>{{ $bookInfo->book->author }}</td>
                                 <td>{{ $bookInfo->book->description }}</td>
                                 <td>
-                                @foreach ($bookInfo->book->categories as $category)
-                                    <a href="/category/{{ $category->id }}">{{ $category->name }}</a><br>
-                                @endforeach
-                                {{ count($bookInfo->book->categories) ? '' : '#' }}
-                                </td>
+                                        @foreach ($bookInfo->book->categories as $category)
+                                            <a href="/category/{{ $category->id }}">{{ $category->name }}</a><br>
+                                        @endforeach
+                                        {{ count($bookInfo->book->categories) ? '' : '#' }}
+                                        </td>
                                 <td><img width="80" src="data:image/jpeg;base64,{{  base64_encode( $bookInfo->book->image )}}"/></td>
-                                <td>{{ $bookInfo->number_of_days }}</td>
-                                <td>{{ $bookInfo->fees_per_day }}</td>
+                                <td>
+                                    <form method="post" action="{{ route('favoriteBooks') }}">
+                                        @csrf
+                                        <button id="favBtn" type="submit"><i class="fas fa-heart fa-2x"></i></button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                       </table>
-
-
                 </div>
             </div>
         </div>
         <div class="col-md-2"></div>
     </div>
+
 @endsection

@@ -1,0 +1,16 @@
+
+#favBtn{
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+.fa-heart{
+    color: #e74c3c
+}
+
+
+#chartdiv{
+    width: 80%;
+    margin-top: 100px;
+}

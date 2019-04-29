@@ -7,7 +7,8 @@
 
 @include('components.messages')
 @include('users.create')
-<table class="table table-striped  centered">
+
+<table class="table striped high-light centered">
         <thead class="thead-light">
           <tr>
             <th scope="col">#</th>
@@ -31,6 +32,7 @@
         <td>{{$user->user_name}}</td>
         <td>{{$user->phone}}</td>
         <td>{{$user->national_id}}</td>
+<<<<<<< HEAD
         <td><input type="checkbox"  {{$user->is_admin == 1 ? 'checked' : '' }} /> </td>
         <td><input type="checkbox"  {{$user->is_active == 1 ? 'checked' : '' }} /> </td>
         <td class="flex flex-row" style="display:flex;flex-direction:row" >
@@ -80,6 +82,19 @@
 <div class="modal-footer">
   
 </div>
+=======
+        <td><input type="radio"  {{$user->is_admin == 1 ? 'checked' : '' }} /> </td>
+        <td><input type="checkbox" checked {{$user->is_active == 1 ? 'checked' : '' }} /> </td>
+        <td style="width:20%">
+            {{-- @can('update',$user ) --}}
+            {{-- <a href="{{ route('users.edit',['user'=> $user]) }}"><button class='btn btn-warning'> Edit </button> </a> --}}
+           {{-- @endcan --}}
+            <form style="display:inline" action='{{route('users.destroy',['user'=> $user])}}' method='POST'>
+              @csrf
+              @method('delete')
+              {{-- <input type='Submit' class='btn btn-danger' href="{{ $url = route('users', ['user' => $loop->index ]) }}" value= 'Delete' />  --}}
+            </form>
+>>>>>>> 5bbebcb218d4ed498f18a910820c723954a4aed8
             {{-- <a href="{{ route('users.show',['user'=> $user]) }}"><button class='btn btn-info'> View </button> </a> --}}
             </td>
     </tr>

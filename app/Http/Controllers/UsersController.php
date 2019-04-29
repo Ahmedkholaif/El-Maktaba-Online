@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Borrowed_Book;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -19,6 +20,22 @@ class UsersController extends Controller
         $users = User::orderBy('created_at','desc')->paginate(5);
         return view('users.index')-> with('users',$users);
         // return $users;
+    }
+
+    /**
+     * Display a specific user page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profile($id)
+    {
+        
+        // $users = User::orderBy('created_at','desc')->paginate(5);
+        
+        $users = User::find($id);
+        
+        return view('users.profile', compact(['users']));
+        
     }
 
     /**
@@ -100,5 +117,10 @@ class UsersController extends Controller
         $user->delete();
         return redirect('users')->with('success','User Deleted');
 
+    }
+    public function adminBorrowedBooks()
+    {
+        $booksInfo = Borrowed_Book::get();
+        return view('admin_borrowed_books',compact('booksInfo'));
     }
 }
