@@ -35,9 +35,16 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $bookid)
     {
-        //
+        $comment = new Comment([
+          'body' => request("body"),
+          'book_id' => $bookid ,
+          'user_id' => auth()->id()
+
+        ]);
+        $comment->save();
+        return redirect()->route('books.show', ['bookid'=> $bookid]);
     }
 
     /**
