@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Borrowed_Book;
 use Illuminate\Http\Request;
+// use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+// use Illuminate\Foundation\Auth\RegistersUsers;
 
 class UsersController extends Controller
 {
@@ -17,7 +21,7 @@ class UsersController extends Controller
     {
         // $user = auth()->user();
         // $contacts = Contact::orderBy('created_at','desc')->paginate(3);
-        $users = User::orderBy('created_at','desc')->paginate(5);
+        $users = User::orderBy('created_at','desc')->paginate(3);
         return view('users.index')-> with('users',$users);
         // return $users;
     }
@@ -54,9 +58,34 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
     public function store(Request $request)
     {
-        //
+    //     protected function create(array $data)
+    // {
+        // dd($data);
+        // $data = array($request->input);
+        // dd ($request->input);
+         User::create([
+            'name' => $request->input('name'),
+            'user_name'=>$request->input('user_name'),
+            'national_id'=>$request->input('national_id'),
+            'phone'=>$request->input('phone'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'is_active' => $request->input('is_active')  == 'on' ? true : false,
+            'is_admin'=> $request->input('is_admin')   == 'on' ? true : false
+        ]);
+    // }
+        return redirect('users');
     }
 
     /**
@@ -102,6 +131,8 @@ class UsersController extends Controller
             'national_id'=>$request->input('national_id'),
             'phone'=>$request->input('phone'),
             'email' => $request->input('email'),
+            'is_active' => $request->input('is_active')  == 'on' ? true : false,
+            'is_admin'=> $request->input('is_admin')   == 'on' ? true : false
         ]);
         return redirect('users')->with('success','User Updated');
     }

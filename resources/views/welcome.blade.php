@@ -10,13 +10,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> --}}
             
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> --}}
+    {{-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,9 +28,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
     <body>
-@yield('login')
+{{-- @yield('login') --}}
         {{-- <div class="flex-center position-ref full-height"> --}}
-        {{-- @include('auth.login') --}}
+        @include('auth.login')
         
             {{-- @if (Route::has('login'))
                 <div class="top-right links">

@@ -9,7 +9,7 @@
 </head>
 <body>
     
-    <header class=" mainnav   navbar-fixed-top " role="banner">
+    <header class=" mainnav navbar-fixed-top" role="banner">
         <div class="navbar-header">
             <a href="./" class="navbar-brand brandcolor">Mktabaty <img src='{{ asset("images/owl.png") }}' alt="Circle Image" class=" rounded-circle img-full" /> </a>
         </div>
@@ -24,7 +24,60 @@
                     <a class="main-nav " href="#">Favourites</a>
                 </li>
                 <li>
-                    <a class="main-nav navbarsession" href="#">user</a>
+                  <!--   <a class="main-nav navbarsession" href="#">
+ -->
+
+
+
+
+                <ul class="main-nav navbarsession navloginusersize">
+            <!-- Authentication Links -->
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+            @if (Route::has('register'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+            @endif
+            @else
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle whiteheperlink" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+            @endguest
+        </ul>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- </a> -->
                 </li>
                 
             </ul>
@@ -193,27 +246,29 @@
                                 </ul>
                             </nav>
                             </center>
+                            
+                            
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="Section2">
+                            <h3>Section 2</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="Section3">
+                            <h3>Section 3</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="Section4">
+                            <h3>Section 4</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="Section5">
+                            <h3>Section 5</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
                         </div>
                     </div>
                 </div>
-            
-            <div role="tabpanel" class="tab-pane fade" id="Section2">
-                <h3>Section 2</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="Section3">
-                <h3>Section 3</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="Section4">
-                <h3>Section 4</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="Section5">
-                <h3>Section 5</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
             </div>
         </div>
-        </div>
-        <div class="hidebox"></div>
-    </body>
+    </div>
+    <div class="hidebox"></div>
+</body>

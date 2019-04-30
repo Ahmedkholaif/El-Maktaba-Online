@@ -5,10 +5,23 @@ body {
 
 /********************* Nav bar *******************/
 
+.navloginusersize {
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.whiteheperlink {
+    color: white;
+}
+
+li {
+    list-style: none;
+}
+
 /********************** Search bar *****************/
 .search-box {
     position: absolute;
-    top: 16%;
+    top: 14%;
     left: 55%;
     transform: translate(-50%, -50%);
     background-color: #2f3640;

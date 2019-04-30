@@ -32,15 +32,16 @@
         <td>{{$user->user_name}}</td>
         <td>{{$user->phone}}</td>
         <td>{{$user->national_id}}</td>
-<<<<<<< HEAD
         <td><input type="checkbox"  {{$user->is_admin == 1 ? 'checked' : '' }} /> </td>
         <td><input type="checkbox"  {{$user->is_active == 1 ? 'checked' : '' }} /> </td>
         <td class="flex flex-row" style="display:flex;flex-direction:row" >
             {{-- @can('update',$user ) --}}
             {{-- @include('users.edit',['user'=>$user]) --}}
             @component('users.edit',['user'=>$user])
+
               {{-- @slot(['user'=>$user]) --}}
             @endcomponent
+            {{-- {{$user->is_admin}} {{$user->is_active}} --}}
             {{-- <a href="{{ route('users.edit',['user'=> $user]) }}"><button class='btn btn-warning'> Edit </button> </a> --}}
            {{-- @endcan --}}
            <button 
@@ -57,7 +58,7 @@
             <div class="modal-content">
               <div class="modal-header">
 
-            <form id='del_form' style="display:inline" action='{{route('users.destroy',['user'=> $user])}}' method='POST'>
+            <form id='del_form{{$user->id}}' style="display:inline" action='{{route('users.destroy',['user'=> $user])}}' method='POST'>
               @csrf
               @method('delete')
               {{-- <input type='Submit' class='btn btn-danger' value= 'Delete' />  --}}
@@ -82,19 +83,6 @@
 <div class="modal-footer">
   
 </div>
-=======
-        <td><input type="radio"  {{$user->is_admin == 1 ? 'checked' : '' }} /> </td>
-        <td><input type="checkbox" checked {{$user->is_active == 1 ? 'checked' : '' }} /> </td>
-        <td style="width:20%">
-            {{-- @can('update',$user ) --}}
-            {{-- <a href="{{ route('users.edit',['user'=> $user]) }}"><button class='btn btn-warning'> Edit </button> </a> --}}
-           {{-- @endcan --}}
-            <form style="display:inline" action='{{route('users.destroy',['user'=> $user])}}' method='POST'>
-              @csrf
-              @method('delete')
-              {{-- <input type='Submit' class='btn btn-danger' href="{{ $url = route('users', ['user' => $loop->index ]) }}" value= 'Delete' />  --}}
-            </form>
->>>>>>> 5bbebcb218d4ed498f18a910820c723954a4aed8
             {{-- <a href="{{ route('users.show',['user'=> $user]) }}"><button class='btn btn-info'> View </button> </a> --}}
             </td>
     </tr>
