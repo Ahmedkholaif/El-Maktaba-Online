@@ -36,7 +36,9 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $bookid)
-    {
+    {    $request->validate([
+        'body'=> 'required',
+         ]);
         $comment = new Comment([
           'body' => request("body"),
           'book_id' => $bookid ,
