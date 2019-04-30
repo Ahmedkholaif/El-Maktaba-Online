@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Book;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -12,9 +13,10 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index($bookid)
+    {   $book = Book::find($bookid);
+        $comments = $book->comments ; 
+        return view('comments.index' , compact('book','comments'));
     }
 
     /**
@@ -33,9 +35,16 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $bookid)
     {
-        //
+        $comment = new Comment([
+          'body' => request("body"),
+          'book_id' => $bookid ,
+          'user_id' => auth()->id()
+
+        ]);
+        $comment->save();
+        return redirect()->route('books.show', ['bookid'=> $bookid]);
     }
 
     /**
