@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+// use AuthenticatesUsers;
+use App\User;
 class LoginController extends Controller
 {
     /*
@@ -25,8 +27,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
 
+    protected function authenticated(Request $request, $user) {
+        // dd($user);
+        // dd($user->is_admin);
+        if ($user->is_admin == 1) {
+            // to admin dashboard
+            return redirect('/users');
+        }
+        // to user profile
+        return redirect('/home');
+   }
     /**
      * Create a new controller instance.
      *
@@ -42,5 +53,13 @@ class LoginController extends Controller
         $field = filter_var($login,FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
         request()->merge([$field=>$login]);
         return $field;
+    }
+
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+        $credentials['is_active'] = 1;
+
+        return $credentials;
     }
 }

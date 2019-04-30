@@ -1,32 +1,13 @@
-{{-- @extends('layouts.app') --}}
-
-{{-- @section('content')
-<div class="container col-5">
-<a href="{{ route('contacts') }}"> Back To Contacts  </a>
-<h2> Edit Contact </h2>
-
-@include('components.message')
-
-<form action="{{ route('contacts.update',['id'=>$contact]) }}" method="POST">
-    
-    @csrf
-    @method('put')
-   
-</form>
-</div> --}}
-{{-- @endsection --}}
-{{-- @include('components.navItems') --}}
-
 <button 
    type="button" 
    class="btn btn-primary " 
    data-toggle="modal" 
-   data-target="#EditModal">
+   data-target="#EditModal-{{$user->id}}">
   Edit
 </button>
-<div class="modal fade" id="EditModal" 
+<div class="modal fade" id="EditModal-{{$user->id}}" 
      tabindex="-1" role="dialog" 
-     aria-labelledby="EditModalLabel">
+     aria-labelledby="EditModalLabel-{{$user->id}}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -52,12 +33,11 @@
                   @csrf
                   @method('put')
                   
-                   
                   <div class="form-group row">
                       <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                       <div class="col-md-6">
-                          <input id="name" type="text"
+                          <input  type="text"
                           
                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" 
                           value="{{ old('name' , $user->name) }}" required autofocus>
@@ -74,7 +54,7 @@
                       <label for="user_name" class="col-md-4 col-form-label text-md-right">{{ __('User name') }}</label>
 
                       <div class="col-md-6">
-                          <input id="user_name" 
+                          <input  
                           type="text" class="form-control{{ $errors->has('user_name') ? ' is-invalid' : '' }}" 
                           name="user_name" value="{{ old('user_name',$user->user_name) }}" required autofocus>
 
@@ -90,7 +70,7 @@
                       <label for="national_id" class="col-md-4 col-form-label text-md-right">{{ __('National ID') }}</label>
 
                       <div class="col-md-6">
-                          <input id="national_id" type="text" 
+                          <input  type="text" 
                           class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}" 
                           name="national_id" value="{{ old('national_id',$user->national_id) }}" required autofocus>
 
@@ -106,7 +86,7 @@
                       <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
                       <div class="col-md-6">
-                          <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" 
+                          <input  type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" 
                           name="phone" value="{{ old('phone',$user->phone) }}" required autofocus>
 
                           @if ($errors->has('phone'))
@@ -121,7 +101,7 @@
                       <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                       <div class="col-md-6">
-                          <input id="email" type="email"
+                          <input  type="email"
                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" 
                            value="{{ old('email',$user->email) }}" required>
 
@@ -132,6 +112,21 @@
                           @endif
                       </div>
                   </div>
+                  <div class="form-group row">
+                        <label for="is_admin" class="col-md-4 col-form-label text-md-right">{{ __('Admin') }}</label>
+  
+                        <div class="col-md-6">
+                            <input  type="checkbox" name="is_admin" {{$user->is_admin == 1 ? 'checked' : '' }} >
+                            
+                        </div>
+                        <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Active') }}</label>
+  
+                        <div class="col-md-6">
+                            
+                            <input  type="checkbox" name="is_active" {{$user->is_active == 1 ? 'checked' : '' }} >
+                            
+                        </div>
+                    </div>
 {{-- 
                   <div class="form-group row">
                       <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
