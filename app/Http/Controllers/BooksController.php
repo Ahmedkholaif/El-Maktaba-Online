@@ -154,25 +154,21 @@ class BooksController extends Controller
 
             $rating = new \willvincent\Rateable\Rating;
 
-            $rating->rating = $request->rate;
-    
-            $rating->user_id = auth()->user()->id;
-    
-    
-            $book->ratings()->save($rating);
-    
-            return redirect()->back();    
+              
         }
-        else {
-           $this->updateRating();
-            
-        }
+
+        $rating->rating = $request->rate;
+    
+        $rating->user_id = auth()->user()->id;
+
+
+        $book->ratings()->save($rating);
+
+      
+        return redirect()->back(); 
     
 
     }
 
-    public function updateRating(){
-        echo "inside updatRating fun";
-
-    }
+   
 }
