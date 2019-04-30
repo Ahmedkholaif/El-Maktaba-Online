@@ -44,7 +44,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function favourite_books (){
+    public function favorite_books (){
         return $this->belongsToMany('App\Book','favourite__books');
     }
 

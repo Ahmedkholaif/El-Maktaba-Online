@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Borrowed_Book;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -77,7 +78,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit',['user'=>$user]);
     }
 
     /**
@@ -89,7 +90,20 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        print $user ;
+        $this->validate($request,[
+            'user_name'=>['required',"unique:users,user_name,$user->id"],
+            'email'=>['required',"unique:users,email,$user->id"],
+            'phone'=>'min:5'
+            ]);
+        $user->update([
+            'name' => $request->input('name'),
+            'user_name'=>$request->input('user_name'),
+            'national_id'=>$request->input('national_id'),
+            'phone'=>$request->input('phone'),
+            'email' => $request->input('email'),
+        ]);
+        return redirect('users')->with('success','User Updated');
     }
 
     /**
@@ -100,6 +114,13 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect('users')->with('success','User Deleted');
+
+    }
+    public function adminBorrowedBooks()
+    {
+        $booksInfo = Borrowed_Book::get();
+        return view('admin_borrowed_books',compact('booksInfo'));
     }
 }
