@@ -14,13 +14,23 @@
 	      <div class="modal-body">
           <div class="form-group">
 		        	<label for="title">Title</label>
-		        	<input type="text" class="form-control" name="name" id="title">
+		        	<input type="text" class="form-control" name="name" id="title" required>
+							@if ($errors->has('name'))
+
+                	<span class="text-danger">{{ $errors->first('name') }}</span>
+
+            	@endif
 	        	</div>
 
 	        	<div class="form-group">
 	        		<label for="des">Description</label>
-	        		<textarea name="description" id="des" cols="20" rows="5" id='des' class="form-control"></textarea>
-	        	</div>
+	        		<textarea name="description" id="des" cols="20" rows="5" class="form-control" required></textarea>
+	        		@if ($errors->has('description'))
+
+                	<span class="text-danger">{{ $errors->first('description') }}</span>
+
+            	@endif
+						</div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -30,4 +40,12 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+	@if (count($errors) > 0)
+			$('#myModal').modal('show');
+	@endif
+</script>
+
 

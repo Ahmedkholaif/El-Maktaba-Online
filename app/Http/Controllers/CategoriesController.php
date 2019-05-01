@@ -38,7 +38,11 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
         $category = new Category;
         $category->name = $request->name;
         $category->description = $request->description;
@@ -79,6 +83,11 @@ class CategoriesController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
         $category = Category::find($id);
         $category->name = $request->name;
         $category->description = $request->description;

@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/{id}', 'UsersController@profile');
 
 Route::resource('/users', 'UsersController') ;//->middleware('auth');
-Route::resource('/books', 'BooksController')->middleware('auth');
+Route::resource('/books', 'BooksController');//->middleware('auth')
 
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
 
