@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+// Route::post('/home/{searchWord}', 'books@search')->name('books.search');
+// Route::get('/home/searchResults', 'books@searchResults');
 Route::get('/users/{id}', 'UsersController@profile');
 
 Route::resource('/users', 'UsersController') ;//->middleware('auth');
@@ -37,3 +38,5 @@ Route::resource('category','CategoriesController');
 // Route::get('/category.store', 'CategoriesController@store');
 
 Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
+
+Route::post('/favourites/store', 'FavouritesController@store');

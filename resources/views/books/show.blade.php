@@ -4,13 +4,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <!-- Styles -->
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet"> 
 
@@ -36,7 +37,7 @@
           <img data-src="holder.js/32x32?theme=thumb&amp;bg=6f42c1&amp;fg=6f42c1&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 150px; height: 150px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16a5b84e308%20text%20%7B%20fill%3A%236f42c1%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16a5b84e308%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%236f42c1%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.666666746139526%22%20y%3D%2216.999999976158144%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
         </div>
 
-        <div class="col-sm-8 col-md-8 col-xs-8 m-0"> 
+        <div class="col-sm-7 col-md-7 col-xs-7 m-0"> 
             <div><h2 class=" pb-2 mb-0">{{$book->title}} </h2></div>
            
               
@@ -61,6 +62,12 @@
                 <button class="btn btn-primary">Lease</button>
             </div>
         </div> 
+        <div class="col-sm-1 col-md-1 col-xs-1 m-0"> 
+        <span style="font-size: 48px; color: red;">
+        <i class="far fa-heart" id="addFav"></i>
+        </span>
+     
+        </div>
 
               
              
@@ -153,6 +160,33 @@
 <script type="text/javascript">
 
     $("#input-id").rating();
+
+
+    $("#addFav").click(function(e){
+      let isAddFav = false;
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+      $.ajax({
+          method: 'POST', // Type of response and matches what we said in the route
+          url: '/favourites/store', // This is the url we gave in the route
+          data: { bookid :'{{ $book->id }}' }, // a JSON object to send back
+          success: function(response){ // What to do if we succeed
+              console.log(response); 
+              $("#addFav").removeClass("far");
+              $("#addFav").addClass("fas");
+          },
+          error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+              console.log(JSON.stringify(jqXHR));
+              console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+          }
+      });
+
+
+
+    });
 
 </script>
 
