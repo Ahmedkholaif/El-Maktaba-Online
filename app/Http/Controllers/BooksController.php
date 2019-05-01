@@ -156,4 +156,34 @@ class BooksController extends Controller
         $booksInfo = Favourite_Book::get();
         return view('user_favorite_books',compact('booksInfo','bool'));
     }
+
+
+    public function saveRating(Request $request , $book_id)
+    {   
+        $book = Book::find($request->id);
+
+        $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
+
+        if (is_null($rating))
+        {
+
+            $rating = new \willvincent\Rateable\Rating;
+
+              
+        }
+
+        $rating->rating = $request->rate;
+    
+        $rating->user_id = auth()->user()->id;
+
+
+        $book->ratings()->save($rating);
+
+      
+        return redirect()->back(); 
+    
+
+    }
+
+   
 }

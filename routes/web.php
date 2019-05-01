@@ -34,3 +34,5 @@ Route::resource('/books/{id}/comments', 'CommentsController')->middleware('auth'
 
 Route::resource('category','CategoriesController');
 
+Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
+
