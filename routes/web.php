@@ -38,3 +38,5 @@ Route::resource('category','CategoriesController');
 Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
 
 Route::post('/favourites/store', 'FavouritesController@store');
+Route::post('/favourites/destroy', 'FavouritesController@destroy');
+
