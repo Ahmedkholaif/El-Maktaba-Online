@@ -7,7 +7,7 @@
 
 <div class="box-body">
 <table class="table table-bordered table-hover" style="text-align=center">
-<thead class="thead-dark">
+<thead class="thead-light">
 <tr>
 <th scope="col" class="text-center " style="width: 10%"> Image </th>
 <th scope="col" class="text-center" style="width: 10%"> Title </th>

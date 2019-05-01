@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Book;
+use App\Favourite_Book;
 use Illuminate\Http\Request;
 
-class CommentsController extends Controller
+class FavouritesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,7 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($bookid)
-    {   $book = Book::find($bookid);
-        $comments = $book->comments ; 
-        return view('comments.index' , compact('book','comments'));
+    {  
     }
 
     /**
@@ -35,18 +34,16 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $bookid)
-    {    $request->validate([
-        'body'=> 'required',
-         ]);
-        $comment = new Comment([
-          'body' => request("body"),
-          'book_id' => $bookid ,
-          'user_id' => auth()->id()
+    public function store(Request $request)
+    {   
+        $favourite = new Favourite_Book;
+        $favourite->book_id = $request->bookid;
+        $favourite->user_id= auth()->user()->id;
+        $favourite->save();
+        
+        return response()->json(['success'=>'Data is succefully added']);
 
-        ]);
-        $comment->save();
-        return redirect()->route('books.show', ['bookid'=> $bookid]);
+       
     }
 
     /**
