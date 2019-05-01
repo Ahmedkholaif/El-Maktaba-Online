@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/{id}', 'UsersController@profile');
 
 Route::resource('/users', 'UsersController') ;//->middleware('auth');
-Route::resource('/books', 'BooksController')->middleware('auth');
+Route::resource('/books', 'BooksController');//->middleware('auth')
 
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
 
@@ -34,8 +34,6 @@ Route::get('/admin/Borrowed_Books', 'UsersController@adminBorrowedBooks')->name(
 Route::resource('/books/{id}/comments', 'CommentsController')->middleware('auth');
 
 Route::resource('category','CategoriesController');
-// Route::get('/category', 'CategoriesController@index');
-// Route::get('/category.store', 'CategoriesController@store');
 
 Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
 

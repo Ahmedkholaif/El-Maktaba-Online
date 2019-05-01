@@ -16,3 +16,4 @@ class Category extends Model
         return $this->belongsToMany('App\Book','book__categories');
     }
 }
+ 
