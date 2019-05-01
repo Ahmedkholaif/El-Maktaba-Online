@@ -15,7 +15,7 @@ class CommentsController extends Controller
      */
     public function index($bookid)
     {   $book = Book::find($bookid);
-        $comments = $book->comments ; 
+        $comments = $book->comments()->orderByDesc('created_at')->get() ; 
         return view('comments.index' , compact('book','comments'));
     }
 

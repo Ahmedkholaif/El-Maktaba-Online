@@ -25,11 +25,23 @@
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">  
     
+        
+        @if (auth()->user()->favorite_books()->get()->contains($book))
         <style type="text/css">
-          #removeFav {
+          #addFav {
               display: none;
             }
-        </style>
+         </style>
+           @else
+           <style type="text/css">
+
+           #removeFav {
+              display: none;
+            }
+
+            </style>
+         @endif 
+        
     </head>
     
     
