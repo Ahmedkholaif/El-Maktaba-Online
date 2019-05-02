@@ -19,11 +19,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+// Route::post('/home/{searchWord}', 'books@search')->name('books.search');
+// Route::get('/home/searchResults', 'books@searchResults');
 Route::get('/users/{id}', 'UsersController@profile');
 
-Route::resource('/users', 'UsersController') ;//->middleware('auth');
-Route::resource('/books', 'BooksController');//->middleware('auth')
+Route::resource('/users', 'UsersController');//->middleware('admin') ;//->middleware('auth');
+Route::resource('/books', 'BooksController');//->middleware('auth');
 
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
 
@@ -37,6 +38,7 @@ Route::resource('category','CategoriesController');
 
 Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
 
+
 Route::any('/search',function(){
     $query = Input::get ( 'query' );
     $books = Book::where('title','LIKE','%'.$query.'%')->orWhere('author','LIKE','%'.$query.'%')->get();
@@ -44,3 +46,8 @@ Route::any('/search',function(){
         return view('search',compact('books'));
     else return view ('search')->withMessage('No such book!');
 });
+
+Route::post('/favourites/store', 'FavouritesController@store');
+Route::post('/favourites/destroy', 'FavouritesController@destroy');
+
+

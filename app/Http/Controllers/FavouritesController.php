@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Book;
+use App\Favourite_Book;
 use Illuminate\Http\Request;
 
-class CommentsController extends Controller
+class FavouritesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,7 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($bookid)
-    {   $book = Book::find($bookid);
-        $comments = $book->comments()->orderByDesc('created_at')->get() ; 
-        return view('comments.index' , compact('book','comments'));
+    {  
     }
 
     /**
@@ -35,18 +34,16 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $bookid)
-    {    $request->validate([
-        'body'=> 'required',
-         ]);
-        $comment = new Comment([
-          'body' => request("body"),
-          'book_id' => $bookid ,
-          'user_id' => auth()->id()
+    public function store(Request $request)
+    {   
+        $favourite = new Favourite_Book;
+        $favourite->book_id = $request->bookid;
+        $favourite->user_id= auth()->user()->id;
+        $favourite->save();
+        
+        return response()->json(['success'=>'Data is succefully added']);
 
-        ]);
-        $comment->save();
-        return redirect()->route('books.show', ['bookid'=> $bookid]);
+       
     }
 
     /**
@@ -71,17 +68,8 @@ class CommentsController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        //
-    }
+  
+ 
 
     /**
      * Remove the specified resource from storage.
@@ -89,8 +77,11 @@ class CommentsController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request )
     {
-        //
+        $favourite = Favourite_Book::where('user_id',auth()->user()->id)->where('book_id',$request->bookid);
+        $favourite->delete();
+        return response()->json(['success'=>'Data is succefully deleted']);
+
     }
 }
