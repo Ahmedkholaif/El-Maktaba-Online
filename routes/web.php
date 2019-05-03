@@ -1,5 +1,6 @@
 <?php
-
+use App\Book;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,21 +19,36 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::post('/home/{searchWord}', 'books@search')->name('books.search');
+// Route::get('/home/searchResults', 'books@searchResults');
+Route::get('/users/{profile}', 'UsersController@profile')->name('users.profile');
+Route::put('/users/{profile}/update','UsersController@update_profile')->name('users.update_profile');
 
-Route::get('/users/{id}', 'UsersController@profile');
-
-Route::resource('/users', 'UsersController') ;//->middleware('auth');
+Route::resource('/users', 'UsersController')->except('show');//->middleware('admin') ;//->middleware('auth');
 Route::resource('/books', 'BooksController');//->middleware('auth');
 
-Route::resource('books.comments', 'CommentsController');//->middleware('auth');
+// Route::resource('books.comments', 'CommentsController')->middleware('auth');
 
 
 Route::get('/borrowed_books', 'BooksController@borrowedBooks')->name('borrowedBooks');
 Route::get('/favorite_books', 'BooksController@favoriteBooks')->name('favoriteBooks');
 Route::get('/admin/Borrowed_Books', 'UsersController@adminBorrowedBooks')->name('adminBorrowedBooks');
-Route::resource('/books.comments', 'CommentsController');//->middleware('auth');
-
+Route::resource('/books/{id}/comments', 'CommentsController')->middleware('auth');
 
 Route::resource('category','CategoriesController');
-// Route::get('/category', 'CategoriesController@index');
-// Route::get('/category.store', 'CategoriesController@store');
+
+Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
+
+
+Route::any('/search',function(){
+    $query = Input::get ( 'query' );
+    $books = Book::where('title','LIKE','%'.$query.'%')->orWhere('author','LIKE','%'.$query.'%')->get();
+    if(count($books) > 0)
+        return view('search',compact('books'));
+    else return view ('search')->withMessage('No such book!');
+});
+
+Route::post('/favourites/store', 'FavouritesController@store');
+Route::post('/favourites/destroy', 'FavouritesController@destroy');
+
+

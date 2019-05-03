@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+
+use willvincent\Rateable\Rateable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use App\Rating;
@@ -13,6 +15,7 @@ use App\Category;
 class Book extends Model
 {
     use SoftDeletes;
+    use Rateable;
 
     public function user_favourite_books () {
         return $this->belongsToMany('App\User','favourite__books');
@@ -26,9 +29,9 @@ class Book extends Model
         return $this->hasMany('App\Comment');
     }
 
-    public function ratings () {
-        return $this->hasMany('App\Rating');
-    }
+    // public function ratings () {
+    //     return $this->hasMany('App\Rating');
+    // }
 
     public function categories () {
         return $this->belongsToMany('App\Category','book__categories');

@@ -45,9 +45,16 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        // $path = $request->image->store('');
-        // dd($path);
-        // dd($request->categories_id);
+        $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'copies_number' => 'required',
+            'fees_per_day' => 'required',
+            'image' => 'required',
+            'categories_id' => 'required',
+            'description' => 'required',
+        ]);
+
         $book = new Book();
         $book->title = $request->title;
         $book->author = $request->author;
@@ -68,20 +75,16 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show( $bookid )
-    {   $book = Book::find($bookid);
-        // $comments = $book->comments();
-
-        // $data =array(
-        //     'book' => $book,
-        //     'comments' => $comments);
-
-
-
-
+    {   
+        
+        $book = Book::find($bookid);
+        $comments = $book->comments()->orderByDesc('created_at')->take(5)->get();
+        $relatedBooks=Book::find($bookid)->categories()->first()->books()
+        ->where ('book_id', '!=',$bookid)->take(5)->get();     
 
         // $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
 
-        return view('books.show',compact('book'));
+        return view('books.show',compact('book','comments', 'relatedBooks'));
     }
 
     /**
@@ -94,7 +97,7 @@ class BooksController extends Controller
     {
         $book = Book::find($id);
         $categories = Category::all();
-        dd($categories);
+        // dd($categories);
         return view('books.edit', compact('book','categories'));
     }
 
@@ -107,6 +110,15 @@ class BooksController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'copies_number' => 'required',
+            'fees_per_day' => 'required',
+            'image' => 'required',
+            'categories_id' => 'required',
+            'description' => 'required',
+        ]);
         $book = Book::find($id);
         $book->title = $request->title;
         $book->author = $request->author;
@@ -114,8 +126,7 @@ class BooksController extends Controller
         $book->copies_number = $request->copies_number;
         $book->image = $request->file('image')->store('bookImages','public');
         $book->fees_per_day = $request->fees_per_day;
-        $book->categories()->detach();
-        $book->categories()->attach($request->categories_id);
+        $book->categories()->sync($request->categories_id);
         $book->save();
         return redirect()->route('books.index');
 
@@ -145,4 +156,34 @@ class BooksController extends Controller
         $booksInfo = Favourite_Book::get();
         return view('user_favorite_books',compact('booksInfo','bool'));
     }
+
+
+    public function saveRating(Request $request , $book_id)
+    {   
+        $book = Book::find($request->id);
+
+        $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
+
+        if (is_null($rating))
+        {
+
+            $rating = new \willvincent\Rateable\Rating;
+
+              
+        }
+
+        $rating->rating = $request->rate;
+    
+        $rating->user_id = auth()->user()->id;
+
+
+        $book->ratings()->save($rating);
+
+      
+        return redirect()->back(); 
+    
+
+    }
+
+   
 }
