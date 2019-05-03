@@ -31,6 +31,10 @@
     <body >
 {{-- @yield('login') --}}
         {{-- <div class="flex-center position-ref full-height"> --}}
+        
+                <a class="navbar-brand" href="{{ url('/users') }}">
+                    Users
+                 </a>
         @include('auth.login')
         
             {{-- @if (Route::has('login'))

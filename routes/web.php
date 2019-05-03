@@ -24,7 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/{profile}', 'UsersController@profile')->name('users.profile');
 Route::put('/users/{profile}/update','UsersController@update_profile')->name('users.update_profile');
 
-Route::resource('/users', 'UsersController')->except('show')->middleware('admin') ;//->middleware('auth');
+Route::resource('/users', 'UsersController')->except('show');//->middleware('admin') ;//->middleware('auth');
 Route::resource('/books', 'BooksController');//->middleware('auth');
 
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
