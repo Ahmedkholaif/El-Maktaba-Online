@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('components.navItems')
 @section('content')
 @include('categories.create')
 

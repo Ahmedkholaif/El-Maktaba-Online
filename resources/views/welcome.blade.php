@@ -26,8 +26,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 </head>
-    <body>
+    <body >
 {{-- @yield('login') --}}
         {{-- <div class="flex-center position-ref full-height"> --}}
         @include('auth.login')

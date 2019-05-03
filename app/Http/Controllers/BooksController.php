@@ -79,7 +79,7 @@ class BooksController extends Controller
         
         $book = Book::find($bookid);
         $comments = $book->comments()->orderByDesc('created_at')->take(5)->get();
-        $relatedBooks=Book::find($bookid)->categories()->first()->books()
+        $relatedBooks=$book->categories()->first()->books()
         ->where ('book_id', '!=',$bookid)->take(5)->get();     
 
         // $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
