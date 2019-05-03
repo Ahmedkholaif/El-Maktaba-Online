@@ -70,10 +70,12 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'user_name'=>['required',"unique:users,user_name,$user->id"],
-            'email'=>['required',"unique:users,email,$user->id"],
-            'national_id'=>['required',"unique:users,national_id,$user->id"],
-            'phone'=>['required','min:5',"unique:users,email,$user->id"]
+            'user_name'=>['required',"unique:users,user_name"],
+            'national_id'=>['required',"unique:users,national_id"],
+            'phone'=>['required','min:5',"unique:users,phone"],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
          User::create([
             'name' => $request->input('name'),
