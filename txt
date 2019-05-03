@@ -1,1 +1,16 @@
 https://guarded-sierra-33597.herokuapp.com/ | https://git.heroku.com/guarded-sierra-33597.git
+
+
+Creating heroku-postgresql:hobby-dev on ⬢ guarded-sierra-33597... free
+Database has been created and is available
+ ! This database is empty. If upgrading, you can transfer
+ ! data from another database with pg:copy
+Created postgresql-triangular-80315 as DATABASE_URL
+Use heroku addons:docs heroku-postgresql to view documentation
+
+DATABASE_URL: postgres://yilqtaoxwelxvn:f7e68f1a92dac24e5f7f7dedbf9e2dff3a9f1448217e9e3750bba427212f29db@ec2-23-23-92-204.compute-1.amazonaws.com:5432/d2f0ucjd5pparh
+
+base64:g7OxyljDW99uV0jJKQk8ey+0krDuLC4dq+bEmlxxwtQ=
+
+ Warning: heroku update available from 7.21.0 to 7.24.1
+Running php artisan migrate on ⬢ guarded-sierra-33597... up, run.9693 (Free)
