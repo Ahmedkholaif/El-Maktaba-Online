@@ -24,6 +24,24 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">  
+    
+        
+        @if (auth()->user()->favorite_books()->get()->contains($book))
+        <style type="text/css">
+          #addFav {
+              display: none;
+            }
+         </style>
+           @else
+           <style type="text/css">
+
+           #removeFav {
+              display: none;
+            }
+
+            </style>
+         @endif 
+        
     </head>
     
     
@@ -63,9 +81,16 @@
             </div>
         </div> 
         <div class="col-sm-1 col-md-1 col-xs-1 m-0"> 
-        <span style="font-size: 48px; color: red;">
+       
+
+        <span style="font-size: 48px; color: red; ">
         <i class="far fa-heart" id="addFav"></i>
         </span>
+
+        <span style="font-size: 48px; color: red;">
+        <i class="fas fa-heart" id="removeFav"></i>
+        </span>
+       
      
         </div>
 
@@ -161,9 +186,11 @@
 
     $("#input-id").rating();
 
-
-    $("#addFav").click(function(e){
-      let isAddFav = false;
+    var $addFav = $("#addFav");
+    var $removeFav= $("#removeFav");
+    $addFav.on("click",function(e){
+      $addFav.hide();
+      $removeFav.show();
       $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -175,8 +202,7 @@
           data: { bookid :'{{ $book->id }}' }, // a JSON object to send back
           success: function(response){ // What to do if we succeed
               console.log(response); 
-              $("#addFav").removeClass("far");
-              $("#addFav").addClass("fas");
+            
           },
           error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
               console.log(JSON.stringify(jqXHR));
@@ -186,7 +212,38 @@
 
 
 
-    });
+    })
+
+    // $('#addFav').one('click', addFavHandeler);
+
+
+    $removeFav.on("click",function(e){
+      $removeFav.hide();
+      $addFav.show();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+      $.ajax({
+          method: 'POST', // Type of response and matches what we said in the route
+          url: '/favourites/destroy', // This is the url we gave in the route
+          data: { bookid :'{{ $book->id }}' }, // a JSON object to send back
+          success: function(response){ // What to do if we succeed
+              console.log(response); 
+             
+          },
+          error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+              console.log(JSON.stringify(jqXHR));
+              console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+          }
+      });
+
+
+
+    })
+
+    // $('#removeFav').one('click', removeFavHandeler);
 
 </script>
 

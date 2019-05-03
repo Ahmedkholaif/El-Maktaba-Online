@@ -68,17 +68,8 @@ class FavouritesController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        //
-    }
+  
+ 
 
     /**
      * Remove the specified resource from storage.
@@ -86,8 +77,11 @@ class FavouritesController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request )
     {
-        //
+        $favourite = Favourite_Book::where('user_id',auth()->user()->id)->where('book_id',$request->bookid);
+        $favourite->delete();
+        return response()->json(['success'=>'Data is succefully deleted']);
+
     }
 }
