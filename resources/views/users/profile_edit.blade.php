@@ -29,7 +29,7 @@
 
         
           <div class="card-body">
-              <form method="POST" action="{{ route('users.update',['user'=>$user]) }}">
+              <form method="POST" action="{{ route('users.update_profile',['user'=>$user]) }}">
                   @csrf
                   @method('put')
                   
@@ -112,46 +112,7 @@
                           @endif
                       </div>
                   </div>
-                  <div class="form-group row">
-                        <label for="is_admin" class="col-md-4 col-form-label text-md-right">{{ __('Admin') }}</label>
-  
-                        <div class="col-md-6">
-                            <input  type="checkbox" name="is_admin" {{$user->is_admin == 1 ? 'checked' : '' }} >
-                            
-                        </div>
-                        <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Active') }}</label>
-  
-                        <div class="col-md-6">
-                            
-                            <input  type="checkbox" name="is_active" {{$user->is_active == 1 ? 'checked' : '' }} >
-                            
-                        </div>
-                    </div>
-{{-- 
-                  <div class="form-group row">
-                      <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                      <div class="col-md-6">
-                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                           name="password" >
-
-                          @if ($errors->has('password'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('password') }}</strong>
-                              </span>
-                          @endif
-                      </div>
-                  </div>
-
-                  <div class="form-group row">
-                      <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                      <div class="col-md-6">
-                          <input id="password-confirm" type="password" class="form-control" 
-                          name="password_confirmation">
-                      </div>
-                  </div> --}}
-
+                 
                   <div class="form-group row mb-0">
                       <div class="col-md-6 offset-md-4">
                             <button type="button" 

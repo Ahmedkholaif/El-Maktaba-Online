@@ -31,14 +31,14 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile($id)
+    public function profile(User $profile)
     {
         
         // $users = User::orderBy('created_at','desc')->paginate(5);
         
-        $users = User::find($id);
+        // $user = User::find($id);
         
-        return view('users.profile', compact(['users']));
+        return view('users.profile', ['user'=> $profile]);
         
     }
 
@@ -137,6 +137,25 @@ class UsersController extends Controller
         return redirect('users')->with('success','User Updated');
     }
 
+    public function update_profile(Request $request, User $profile)
+    {
+        // $user=$profile;
+        // print $user ;
+        $this->validate($request,[
+            'user_name'=>['required',"unique:users,user_name,$profile->id"],
+            'email'=>['required',"unique:users,email,$profile->id"],
+            'national_id'=>['required',"unique:users,national_id,$profile->id"],
+            'phone'=>['required','min:5',"unique:users,email,$profile->id"]
+            ]);
+        $profile->update([
+            'name' => $request->input('name'),
+            'user_name'=>$request->input('user_name'),
+            'national_id'=>$request->input('national_id'),
+            'phone'=>$request->input('phone'),
+            'email' => $request->input('email'),
+        ]);
+        return redirect()->route('users.profile',['profile'=>$profile])->with('success','updated');
+    }
     /**
      * Remove the specified resource from storage.
      *
