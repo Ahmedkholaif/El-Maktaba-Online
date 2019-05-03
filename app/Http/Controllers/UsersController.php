@@ -29,13 +29,13 @@ class UsersController extends Controller
      */
     public function profile($id)
     {
-        
+
         // $users = User::orderBy('created_at','desc')->paginate(5);
-        
+
         $users = User::find($id);
-        
+
         return view('users.profile', compact(['users']));
-        
+
     }
 
     /**
@@ -106,6 +106,40 @@ class UsersController extends Controller
     public function adminBorrowedBooks()
     {
         $booksInfo = Borrowed_Book::get();
-        return view('admin_borrowed_books',compact('booksInfo'));
+        $week1=0;
+        $week2=0;
+        $week3=0;
+        $week4=0;
+        foreach($booksInfo as $book)
+        {
+            if( date("m",strtotime($book->created_at)) == date('m')
+                && date("d",strtotime($book->created_at)) > 0
+                && date("d",strtotime($book->created_at)) <= 8  )
+            {
+                $fees = $book->fees_per_day * $book->number_of_days;
+                $week1+=$fees;
+            }
+            elseif(date("m",strtotime($book->created_at)) == date('m')
+                && date("d",strtotime($book->created_at)) > 8
+                && date("d",strtotime($book->created_at)) <= 15  )
+            {
+                $fees = $book->fees_per_day * $book->number_of_days;
+                $week2+=$fees;
+            }
+            elseif(date("m",strtotime($book->created_at)) == date('m')
+            && date("d",strtotime($book->created_at)) > 15
+            && date("d",strtotime($book->created_at)) <= 22  )
+            {
+                $fees = $book->fees_per_day * $book->number_of_days;
+                $week3+=$fees;
+            }
+            elseif(date("m",strtotime($book->created_at)) == date('m')
+            && date("d",strtotime($book->created_at)) > 22)
+            {
+                $fees = $book->fees_per_day * $book->number_of_days ;
+                $week4+=$fees;
+            }
+        }
+        return view('admin_borrowed_books',compact('booksInfo','week1','week2','week3','week4'));
     }
 }
