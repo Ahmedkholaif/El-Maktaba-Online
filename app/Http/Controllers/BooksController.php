@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\User;
 use App\Category;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Borrowed_Book;
 use App\Favourite_Book;
@@ -141,7 +141,19 @@ class BooksController extends Controller
      */
     public function destroy( $id)
     {
-        Book::find($id)->delete();
+        $book = Book::find($id);
+        $borrows = Borrowed_Book::where('book_id','=',$id)->get();
+        if ($borrows->count() > 0){
+            foreach($borrows as $borrow){
+                $created = new Carbon($borrow->created_at->format('m/d/Y')) ;
+                $now = Carbon::now();
+                $difference = $created->diff($now)->days;
+                if( $difference < 3){
+                    return redirect()->route('books.index')->with('status', "you can't delete this book, the book is leased!");
+                }
+            }  
+        }
+        $book->delete();
         return redirect()->route('books.index');
     }
 

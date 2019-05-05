@@ -21,9 +21,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::post('/home/{searchWord}', 'books@search')->name('books.search');
 // Route::get('/home/searchResults', 'books@searchResults');
-Route::get('/users/{id}', 'UsersController@profile');
+Route::get('/users/{profile}', 'UsersController@profile')->name('users.profile');
+Route::put('/users/{profile}/update','UsersController@update_profile')->name('users.update_profile');
 
-Route::resource('/users', 'UsersController');//->middleware('admin') ;//->middleware('auth');
+Route::resource('/users', 'UsersController')->except('show');//->middleware('admin') ;//->middleware('auth');
 Route::resource('/books', 'BooksController');//->middleware('auth');
 
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
@@ -40,7 +41,6 @@ Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating
 
 
 Route::any('/search', 'BooksController@search');
-Route::any('/filter', 'BooksController@filter');
 
 
 Route::post('/favourites/store', 'FavouritesController@store');
