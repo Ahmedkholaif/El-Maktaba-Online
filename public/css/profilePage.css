@@ -1,12 +1,14 @@
-html *{
+html * {
     -webkit-font-smoothing: antialiased;
-    background-color:#201b10 ;
+    background-color: #201b10;
 }
 
-.h6, h6 {
+
+.h6,
+h6 {
     font-size: .75rem !important;
     font-weight: 500;
-    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.5em;
     text-transform: uppercase;
 }
@@ -19,20 +21,22 @@ html *{
 
 .profile-page .page-header {
     height: 370px;
-    background-position:center;
+    background-position: center;
+    margin-top: -70px;
+
 }
 
 .page-header {
-    height: 100vh;
     background-size: cover;
-    margin: 0;
+
     padding: 0;
     border: 0;
     display: flex;
     align-items: center;
 }
 
-.header-filter:after, .header-filter:before {
+.header-filter:after,
+.header-filter:before {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -44,18 +48,18 @@ html *{
 }
 
 .header-filter::before {
-    background: rgba(0,0,0,.5);
+    background: rgba(0, 0, 0, .5);
 }
 
 .main-raised {
     margin: -70px 30px 0;
     border-radius: 6px;
-    box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
 }
 
 .main {
-    width:40%;
-    margin-left: 30% ;
+    width: 40%;
+    margin-left: 30%;
     background: #23140e;
     position: relative;
     z-index: 3;
@@ -69,22 +73,23 @@ html *{
     max-width: 160px;
     width: 100%;
     margin: 0 auto;
-    -webkit-transform: translate3d(0,-50%,0);
-    -moz-transform: translate3d(0,-50%,0);
-    -o-transform: translate3d(0,-50%,0);
-    -ms-transform: translate3d(0,-50%,0);
-    transform: translate3d(0,-50%,0);
+    -webkit-transform: translate3d(0, -50%, 0);
+    -moz-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
 }
 
 .img-raised {
-    box-shadow: 0 5px 15px -8px rgba(0,0,0,.24), 0 8px 10px -5px rgba(0,0,0,.2);
+    box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24), 0 8px 10px -5px rgba(0, 0, 0, .2);
 }
 
 .rounded-circle {
-    border-radius: 50%!important;
+    border-radius: 50% !important;
 }
 
-.img-fluid, .img-thumbnail {
+.img-fluid,
+.img-thumbnail {
     max-width: 100%;
     height: auto;
 }
@@ -93,18 +98,19 @@ html *{
     margin-top: 30px;
     margin-bottom: 25px;
     min-height: 32px;
-    color:white;
+    color: white;
     font-weight: 700;
-    font-family: "Roboto Slab","Times New Roman",serif;
+    font-family: "Roboto Slab", "Times New Roman", serif;
 }
 
-.userinfo{
-    color:white;
+.userinfo {
+    color: white;
     font-weight: 700;
-    font-family: "Roboto Slab","Times New Roman",serif;
+    font-family: "Roboto Slab", "Times New Roman", serif;
 }
-.padding10{
-    padding-bottom: 15px;   
+
+.padding10 {
+    padding-bottom: 15px;
 }
 
 .profile-page .description {
@@ -137,12 +143,10 @@ p {
     margin-bottom: 2.142rem;
 }
 
-.profile-page .profile .name{
-    margin-top: -80px;
-}
+.profile {}
 
 img.rounded {
-    border-radius: 6px!important;
+    border-radius: 6px !important;
 }
 
 .tab-content>.active {
@@ -163,8 +167,8 @@ img.rounded {
     border: 0;
     border-radius: .2rem;
     outline: 0;
-    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1);
-    will-change: box-shadow,transform;
+    transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1);
+    will-change: box-shadow, transform;
 }
 
 .btn.btn-just-icon {
@@ -178,7 +182,7 @@ img.rounded {
     line-height: 41px;
 }
 
-.btn.btn-just-icon fa{
+.btn.btn-just-icon fa {
     margin-top: 0;
     position: absolute;
     width: 100%;
@@ -189,27 +193,30 @@ img.rounded {
     line-height: 41px;
     font-size: 20px;
 }
-.btn.btn-link{
+
+.btn.btn-link {
     background-color: transparent;
     color: #999;
 }
 
 
 /* footer */
-footer{
+footer {
     margin-top: 10px;
     color: #555;
     padding: 25px;
     font-weight: 300;
-    
+
 }
-.footer p{
+
+.footer p {
     margin-bottom: 0;
     font-size: 14px;
     margin: 0 0 10px;
     font-weight: 300;
 }
-footer p a{
+
+footer p a {
     color: #555;
     font-weight: 400;
 }

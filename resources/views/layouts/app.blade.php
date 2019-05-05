@@ -9,8 +9,6 @@
         <!-- Compiled and minified CSS -->
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
         <link rel="stylesheet" type="text/css" href="{{ asset('css/homePage.css') }}" >
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/profilePage.css') }}" >    
-
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
