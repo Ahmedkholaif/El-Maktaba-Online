@@ -39,13 +39,9 @@ Route::resource('category','CategoriesController');
 Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
 
 
-Route::any('/search',function(){
-    $query = Input::get ( 'query' );
-    $books = Book::where('title','LIKE','%'.$query.'%')->orWhere('author','LIKE','%'.$query.'%')->get();
-    if(count($books) > 0)
-        return view('search',compact('books'));
-    else return view ('search')->withMessage('No such book!');
-});
+Route::any('/search', 'BooksController@search');
+Route::any('/filter', 'BooksController@filter');
+
 
 Route::post('/favourites/store', 'FavouritesController@store');
 Route::post('/favourites/destroy', 'FavouritesController@destroy');

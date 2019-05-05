@@ -9,6 +9,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Borrowed_Book;
 use App\Favourite_Book;
+use Illuminate\Support\Facades\Input;
 
 class BooksController extends Controller
 {
@@ -185,5 +186,21 @@ class BooksController extends Controller
 
     }
 
+    public function search (){
+
+        $query = Input::get ( 'query' );
+        if ($query != null )
+        {
+        $categories = Category::all();   
+        $books = Book::where('title','LIKE','%'.$query.'%')->orWhere('author','LIKE','%'.$query.'%')->get();
+        if(count($books) > 0)
+            return view('search',compact('books', 'categories'));
+        else return view ('search')->withMessage('No such book!');
+    
+        }
+        else return view ('search')->withMessage('please enter value in the search box ^^ ');
+    }
+
+  
    
 }

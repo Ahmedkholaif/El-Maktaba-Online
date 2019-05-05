@@ -6,9 +6,10 @@ use App\Comment;
 use App\Book;
 use App\Favourite_Book;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FavouritesController extends Controller
-{
+{   use SoftDeletes;
     /**
      * Display a listing of the resource.
      *

@@ -31,6 +31,14 @@
             {{$comment->body}}
 
             </p>
+            @if ($comment->user_id == auth()->user()->id)
+          <form action="{{ route('comments.destroy', ['id' => $book->id , 'comment'=>$comment->id ])}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">Delete</button>
+           </form>
+           @endif
+           &nbsp;&nbsp;
              <input  disabled ="disabled" id= "input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step=".1" 
             
             value="{{ $book->ratings()->where('user_id', $comment->user->id)->avg('rating')  }}" data-size="xs">
