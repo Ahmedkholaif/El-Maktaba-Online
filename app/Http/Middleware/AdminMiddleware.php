@@ -19,6 +19,6 @@ class AdminMiddleware
         if (Auth::user()->is_admin == 1) {
             return $next($request);
           }
-        return redirect('home');
+        return redirect('unauthorized');
     }
 }

@@ -3,32 +3,34 @@
 @section('login') --}}
 {{-- @section('content')  --}}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 mt-5">
-            <div class="card">
+    <div class="row justify-content-center ">
+        <div class="col-md-6 mt-5">
+            <div style="opacity:.8" class="card  bg-light content-center  mt-5">
                 {{-- <div class="card-header">{{ __('Login') }}</div> --}}
-
-                <div class="card-body">
+                <h3 class="text-center mt-2"> Welcome To The Library</h3>
+                <div class="card-body ">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="login" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Or User Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="login" type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" name="login" value="{{ old('login') }}" required autofocus>
+                            <div class="col-md-12">
+                                <input id="login" type="text" class="text-center form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" 
+                                name="login" value="{{ old('login','') }}" 
+                                placeholder="E-Mail Or User Name"
+                                required autofocus>
 
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                            <div class="col-md-12">
+                                <input id="password" type="password" 
+                                class="text-center form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" 
+                                placeholder="Password"
+                                name="password" required>
 
                                 @if ($errors->has('password'))
-                                    <span class="alert-danger alert" role="alert">
+                                    <span class="alert-danger alert text-center" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
@@ -52,9 +54,9 @@
                         </div>
 
                         @if ($errors->has('user_name') )
-                        <span class="alert-danger alert" role="alert">
+                        <div class=" alert-danger col-12 text-center alert" role="alert">
                             <strong>{{ $errors->first('user_name') }}</strong>
-                        </span>
+                        </div>
                         @endif
                         <hr/>
                         <div class="form-group row mb-0">
