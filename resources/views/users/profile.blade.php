@@ -18,7 +18,10 @@
 									<h4 class="userinfo"> National ID: {{$user->national_id}}</h4>
 									<h4 class="userinfo padding10">Phone: {{$user->phone}}</h4>
 									<h4 class="userinfo padding10">{{$user->email}}</h4>
-									
+									@component('users.profile_edit',['user'=>$user])
+									@endcomponent
+									@include('components.messages')
+								
 							</div>
 						</div>
 					</div>
