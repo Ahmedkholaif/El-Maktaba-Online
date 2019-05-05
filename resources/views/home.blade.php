@@ -8,18 +8,18 @@
     <title>Home</title>
 </head>
 <body>
-    
+
     <header class=" mainnav navbar-fixed-top" role="banner">
-        <div class="navbar-header">
+        {{-- <div class="navbar-header">
             <a href="./" class="navbar-brand brandcolor">Mktabaty <img src='{{ asset("images/owl.png") }}' alt="Circle Image" class=" rounded-circle img-full" /> </a>
-        </div>
+        </div> --}}
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav navbar-left">
-                
+
                 <li >
                     <a class="main-nav in active" href="#">MyBooks</a>
                 </li>
-                
+
                 <li>
                     <a class="main-nav " href="#">Favourites</a>
                 </li>
@@ -55,16 +55,16 @@
                             </li>
                             @endguest
                         </ul>
-                        
+
                         <!-- </a> -->
                     </li>
-                    
+
                 </ul>
             </nav>
-            
+
         </header>
         <!-- sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
-        
+
         <div class="search-box">
             <input type="text" placeholder="Search by name or author .." class="search-txt">
             <a href="" class="search-btn">
@@ -74,25 +74,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="orderbytext"> Order By</h3>
+                    <h3 class="orderbytext"> Order By </h3>
                     <div class="tab" role="tabpanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#rate" aria-controls="home" role="tab" data-toggle="tab">Rate</a></li>
-                            <li role="presentation"><a href="#latest" aria-controls="profile" role="tab" data-toggle="tab">Latest</a></li>
+                            {{-- <li role="presentation" class="active"><a href="#rate" aria-controls="home" role="tab" data-toggle="tab">Rate</a></li>
+                            <li role="presentation"><a href="#latest" aria-controls="profile" role="tab" data-toggle="tab">Latest</a></li> --}}
+                            <li><a href="{{ parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH)  }}{{ isset($_GET['cat']) ? '?cat='.$_GET['cat'] : '' }}" >Rate</a></li>
+                            <li ><a href="{{ parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH)}}{{ isset($_GET['cat']) ? '?cat='.$_GET['cat'].'&' : '?' }}order=latest" >Latest</a></li>
+
                         </ul>
-                        
+
                         <!-- Tab panes -->
                         <div class="tab-content tabs">
                             <div role="tabpanel" class="tab-pane fade in active" id="rate">
                                 <h3>Rate</h3>
-                                
+
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="latest">
                                 <h3>Latest</h3>
-                                
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -103,13 +106,13 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
 
-                            @foreach ($categories as $categ)
+                            @foreach ($categories as $cat)
 
-                            <li role="presentation">
-                                <a href="#Section{{$loop->iteration}}"  role="tab" data-toggle="tab">{{$categ->name}}</a></li>
+                            <li>
+                                <a href="{{ parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) }}?cat={{ $cat->id }}">{{$cat->name}}</a></li>
 
                             @endforeach
-                            <!-- 
+                            <!--
                             <li role="presentation"><a href="#Section1"  role="tab" data-toggle="tab">Music</a></li>
                             <li role="presentation"><a href="#Section2"  role="tab" data-toggle="tab">Music</a></li>
                             <li role="presentation"><a href="#Section3"  role="tab" data-toggle="tab">kids</a></li>
@@ -121,15 +124,18 @@
                         <!-- Tab panes -->
                         <div class="tab-content tabs ">
                             <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+
+                                @foreach ($books as $book)
+
                                 <div class="col-md-4">
                                     <div class="pricingTable">
                                         <div class="pricingTable-header">
-                                            <h3 class="title">Book Title</h3>
+                                            <h3 class="title"><a href="/books/{{ $book->id }}">{{ $book->title }}</a></h3>
                                         </div>
                                         <div class="pricing-content">
                                             <div class="price-value">
-                                                
-                                                <img src='{{ asset("images/user.jpg") }}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/>
+
+                                                    <a href="/books/{{ $book->id }}"><img src='data:image/jpeg;base64,{{  base64_encode( $book->image )}}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/></a>
                                                 <div class="heartpadding">
                                                     <input type="checkbox" />
                                                 </div>
@@ -141,104 +147,26 @@
                                                     <div class="rating__star" title="2 stars" name="4star">⭐</div>
                                                     <div class="rating__star" title="2 stars" name="5star">⭐</div>
                                                 </div>
-                                                <span class="amount">$10 </span>
+                                                <span class="amount">${{ $book->fees_per_day }} </span>
                                             </div>
                                             <ul>
-                                                <li>info info info</li>
-                                                <li>50 copies available  </li>
-                                                
+                                                <li>{{ $book->description }}</li>
+                                                <li>{{ $book->copies_number }} copies available  </li>
+
                                             </ul>
                                         </div>
                                         <a href="#" class="pricingTable-signup">Lease</a>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="pricingTable">
-                                        <div class="pricingTable-header">
-                                            <h3 class="title">Book Title</h3>
-                                        </div>
-                                        <div class="pricing-content">
-                                            <div class="price-value">
-                                                
-                                                <img src='{{ asset("images/user.jpg") }}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/>
-                                                <div class="heartpadding">
-                                                    <input type="checkbox" />
-                                                </div>
-                                                <hr>
-                                                <div class="rating">
-                                                    <div class="rating__star" title="5 stars" name="1star">⭐</div>
-                                                    <div class="rating__star" title="4 stars" name="2star">⭐</div>
-                                                    <div class="rating__star" title="3 stars" name="3star">⭐</div>
-                                                    <div class="rating__star" title="2 stars" name="4star">⭐</div>
-                                                    <div class="rating__star" title="2 stars" name="5star">⭐</div>
-                                                </div>
-                                                <span class="amount">$10 </span>
-                                            </div>
-                                            <ul>
-                                                <li>info info info</li>
-                                                <li>50 copies available  </li>
-                                                
-                                            </ul>
-                                        </div>
-                                        <a href="#" class="pricingTable-signup">Lease</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="pricingTable">
-                                        <div class="pricingTable-header">
-                                            <h3 class="title">Book Title</h3>
-                                        </div>
-                                        <div class="pricing-content">
-                                            <div class="price-value">
-                                                
-                                                <img src='{{ asset("images/user.jpg") }}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/>
-                                                <div class="heartpadding">
-                                                    <input type="checkbox" />
-                                                </div>
-                                                <hr>
-                                                <div class="rating">
-                                                    <div class="rating__star" title="5 stars" name="1star">⭐</div>
-                                                    <div class="rating__star" title="4 stars" name="2star">⭐</div>
-                                                    <div class="rating__star" title="3 stars" name="3star">⭐</div>
-                                                    <div class="rating__star" title="2 stars" name="4star">⭐</div>
-                                                    <div class="rating__star" title="2 stars" name="5star">⭐</div>
-                                                </div>
-                                                <span class="amount">$10 </span>
-                                            </div>
-                                            <ul>
-                                                <li>info info info</li>
-                                                <li>50 copies available  </li>
-                                                
-                                            </ul>
-                                        </div>
-                                        <a href="#" class="pricingTable-signup">Lease</a>
-                                    </div>
-                                </div>
-                                <center>
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                </center>
-                                
-                                
+
+                                @endforeach
+
+
+
+
+
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="Section2">
+                            {{-- <div role="tabpanel" class="tab-pane fade" id="Section2">
                                 <h3>Section 2</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
                             </div>
@@ -253,11 +181,18 @@
                             <div role="tabpanel" class="tab-pane fade" id="Section5">
                                 <h3>Section 5</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
-                            </div>
+                            </div> --}}
                         </div>
+                    </div>
+                    <div class="text-center">
+                        {{ $books->links() }}
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="hidebox"></div>
+
+
+        
     </body>
