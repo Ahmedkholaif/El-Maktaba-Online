@@ -33,13 +33,13 @@ class UsersController extends Controller
      */
     public function profile(User $profile)
     {
-        
+
         // $users = User::orderBy('created_at','desc')->paginate(5);
-        
+
         // $user = User::find($id);
-        
+
         return view('users.profile', ['user'=> $profile]);
-        
+
     }
 
     /**
@@ -170,9 +170,5 @@ class UsersController extends Controller
         return redirect('users')->with('success','User Deleted');
 
     }
-    public function adminBorrowedBooks()
-    {
-        $booksInfo = Borrowed_Book::get();
-        return view('admin_borrowed_books',compact('booksInfo'));
-    }
+
 }

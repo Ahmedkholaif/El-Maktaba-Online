@@ -2,11 +2,30 @@
 
 @section('content')
 
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet"> 
+    <link href = "css/jquery-ui.css" rel = "stylesheet">
+    <!-- Custom CSS -->
+</head>
+
+
+<body>
+
 <div class="container">
 <div class="row">
-<div class="col-2">col-4</div>
 
-<div class='col-10'> 
+
+<div class='col-12 filter_data'> 
     @if(isset($books))
    
    
@@ -28,4 +47,7 @@
     </div>
 </div>
 </div>
+
+
+</body>
 @endsection

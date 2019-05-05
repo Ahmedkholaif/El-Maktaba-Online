@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\User;
 use App\Category;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Borrowed_Book;
 use App\Favourite_Book;
+use Illuminate\Support\Facades\Input;
 
 class BooksController extends Controller
 {
@@ -75,12 +76,12 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show( $bookid )
-    {   
-        
+    {
+
         $book = Book::find($bookid);
         $comments = $book->comments()->orderByDesc('created_at')->take(5)->get();
-        $relatedBooks=$book->categories()->first()->books()
-        ->where ('book_id', '!=',$bookid)->take(5)->get();     
+        $relatedBooks=Book::find($bookid)->categories()->first()->books()
+        ->where ('book_id', '!=',$bookid)->take(5)->get();
 
         // $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
 
@@ -140,26 +141,114 @@ class BooksController extends Controller
      */
     public function destroy( $id)
     {
-        Book::find($id)->delete();
+        $book = Book::find($id);
+        $borrows = Borrowed_Book::where('book_id','=',$id)->get();
+        if ($borrows->count() > 0){
+            foreach($borrows as $borrow){
+                $created = new Carbon($borrow->created_at->format('m/d/Y')) ;
+                $now = Carbon::now();
+                $difference = $created->diff($now)->days;
+                if( $difference < 3){
+                    return redirect()->route('books.index')->with('status', "you can't delete this book, the book is leased!");
+                }
+            }
+        }
+        $book->delete();
         return redirect()->route('books.index');
     }
 
 
     public function borrowedBooks()
     {
-        $booksInfo = Borrowed_Book::get();
+        $booksInfo = Borrowed_Book::where('user_id',auth()->user()->id)->get();
         return view('user_borrowed_books',compact('booksInfo'));
     }
 
     public function favoriteBooks()
     {
-        $booksInfo = Favourite_Book::get();
-        return view('user_favorite_books',compact('booksInfo','bool'));
+        $booksInfo = Favourite_Book::where('user_id',auth()->user()->id)->get();
+        return view('user_favorite_books',compact('booksInfo'));
     }
 
+    public function userHomeBooks()
+    {
+        $categories = Category::get();
+        // $books_categories = Book_Category::all();
+
+        if(!isset($_GET['order']) && !isset($_GET['cat']))
+        {
+            $books = Book::paginate(3);
+        }
+        elseif(isset($_GET['order']) && !isset($_GET['cat']))
+        {
+            $books = Book::latest()->paginate(3);
+            $books->withPath('?order=latest');
+        }
+        elseif(!isset($_GET['order']) && isset($_GET['cat']))
+        {
+            $books = Book::whereHas('categories', function($q)
+            {
+                $q->where('category_id', '=', $_GET['cat']);
+
+            })->paginate(3);
+            $books->withPath('?cat='.$_GET['cat']);
+
+        }
+        elseif(isset($_GET['order']) && isset($_GET['cat']))
+        {
+            $books = Book::whereHas('categories', function($q)
+            {
+                $q->where('category_id', '=', $_GET['cat']);
+
+            })->latest()->paginate(3);
+            $books->withPath('?cat='.$_GET['cat'].'&order=latest');
+        }
+
+        return view('home',compact('books','categories','_GET'));
+    }
+
+    public function adminBorrowedBooks()
+    {
+        $booksInfo = Borrowed_Book::get();
+        $week1=0;
+        $week2=0;
+        $week3=0;
+        $week4=0;
+        foreach($booksInfo as $book)
+        {
+            if( date("m",strtotime($book->created_at)) == date('m')
+                && date("d",strtotime($book->created_at)) > 0
+                && date("d",strtotime($book->created_at)) <= 8  )
+            {
+                $fees = $book->fees_per_day * $book->number_of_days;
+                $week1+=$fees;
+            }
+            elseif(date("m",strtotime($book->created_at)) == date('m')
+                && date("d",strtotime($book->created_at)) > 8
+                && date("d",strtotime($book->created_at)) <= 15  )
+            {
+                $fees = $book->fees_per_day * $book->number_of_days;
+                $week2+=$fees;
+            }
+            elseif(date("m",strtotime($book->created_at)) == date('m')
+            && date("d",strtotime($book->created_at)) > 15
+            && date("d",strtotime($book->created_at)) <= 22  )
+            {
+                $fees = $book->fees_per_day * $book->number_of_days;
+                $week3+=$fees;
+            }
+            elseif(date("m",strtotime($book->created_at)) == date('m')
+            && date("d",strtotime($book->created_at)) > 22)
+            {
+                $fees = $book->fees_per_day * $book->number_of_days ;
+                $week4+=$fees;
+            }
+        }
+        return view('admin_borrowed_books',compact('booksInfo','week1','week2','week3','week4'));
+    }
 
     public function saveRating(Request $request , $book_id)
-    {   
+    {
         $book = Book::find($request->id);
 
         $rating = $book->ratings()->where('user_id', auth()->user()->id)->first();
@@ -169,21 +258,37 @@ class BooksController extends Controller
 
             $rating = new \willvincent\Rateable\Rating;
 
-              
+
         }
 
         $rating->rating = $request->rate;
-    
+
         $rating->user_id = auth()->user()->id;
 
 
         $book->ratings()->save($rating);
 
-      
-        return redirect()->back(); 
-    
+
+        return redirect()->back();
+
 
     }
 
-   
+    public function search (){
+
+        $query = Input::get ( 'query' );
+        if ($query != null )
+        {
+        $categories = Category::all();
+        $books = Book::where('title','LIKE','%'.$query.'%')->orWhere('author','LIKE','%'.$query.'%')->get();
+        if(count($books) > 0)
+            return view('search',compact('books', 'categories'));
+        else return view ('search')->withMessage('No such book!');
+
+        }
+        else return view ('search')->withMessage('please enter value in the search box ^^ ');
+    }
+
+
+
 }
