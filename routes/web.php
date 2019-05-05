@@ -47,3 +47,8 @@ Route::post('/favourites/store', 'FavouritesController@store');
 Route::post('/favourites/destroy', 'FavouritesController@destroy');
 
 
+Route::get('/unauthorized',function(){
+    return view('errors.401');
+
+})->name('unauthorized');
+

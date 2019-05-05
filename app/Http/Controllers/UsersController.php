@@ -69,11 +69,14 @@ class UsersController extends Controller
     }
     public function store(Request $request)
     {
-    //     protected function create(array $data)
-    // {
-        // dd($data);
-        // $data = array($request->input);
-        // dd ($request->input);
+        $this->validate($request,[
+            'user_name'=>['required',"unique:users,user_name"],
+            'national_id'=>['required',"unique:users,national_id"],
+            'phone'=>['required','min:5',"unique:users,phone"],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
          User::create([
             'name' => $request->input('name'),
             'user_name'=>$request->input('user_name'),
@@ -119,11 +122,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        print $user ;
         $this->validate($request,[
             'user_name'=>['required',"unique:users,user_name,$user->id"],
             'email'=>['required',"unique:users,email,$user->id"],
-            'phone'=>'min:5'
+            'national_id'=>['required',"unique:users,national_id,$user->id"],
+            'phone'=>['required','min:5',"unique:users,phone,$user->id"]
             ]);
         $user->update([
             'name' => $request->input('name'),
@@ -139,8 +142,7 @@ class UsersController extends Controller
 
     public function update_profile(Request $request, User $profile)
     {
-        // $user=$profile;
-        // print $user ;
+        
         $this->validate($request,[
             'user_name'=>['required',"unique:users,user_name,$profile->id"],
             'email'=>['required',"unique:users,email,$profile->id"],
