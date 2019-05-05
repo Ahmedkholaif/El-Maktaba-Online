@@ -81,12 +81,15 @@
         </header>
         <!-- sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
 
-        <div class="search-box">
-            <input type="text" placeholder="Search by name or author .." class="search-txt">
-            <a href="" class="search-btn">
-                <i class="fas fa-search"></i>
-            </a>
-        </div>
+        <form action="/search" method="POST" role="search">
+            {{ csrf_field() }}
+            <div class="search-box">
+                <input type="text" placeholder="Search by name or author .." class="search-txt" name="query">
+                <a href="" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+        </form>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
