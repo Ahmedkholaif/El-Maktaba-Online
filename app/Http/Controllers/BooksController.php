@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use App\Borrowed_Book;
 use App\Favourite_Book;
 use Illuminate\Support\Facades\Input;
+use App\Book_Category;
+use DB;
+
 
 class BooksController extends Controller
 {
@@ -170,14 +173,21 @@ class BooksController extends Controller
         return view('user_favorite_books',compact('booksInfo'));
     }
 
+
+
     public function userHomeBooks()
     {
         $categories = Category::get();
-        // $books_categories = Book_Category::all();
 
         if(!isset($_GET['order']) && !isset($_GET['cat']))
         {
-            $books = Book::paginate(3);
+            $books = DB::table('books')
+            ->select('books.*')
+            ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
+            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+            ->groupBy('books.id')
+            ->orderBy('average_rating', 'desc')
+            ->paginate(3);
         }
         elseif(isset($_GET['order']) && !isset($_GET['cat']))
         {
@@ -186,13 +196,16 @@ class BooksController extends Controller
         }
         elseif(!isset($_GET['order']) && isset($_GET['cat']))
         {
-            $books = Book::whereHas('categories', function($q)
-            {
-                $q->where('category_id', '=', $_GET['cat']);
+            $books = DB::table('books')
+            ->join('book__categories', function ($join) {
+                $join->on('books.id', '=', 'book__categories.book_id')
+                    ->where('book__categories.category_id', '=', $_GET['cat']);
+            })
+            ->leftJoin('ratings','books.id', '=', 'ratings.rateable_id')
+            ->orderBy('rating', 'desc')
+            ->paginate(3);
 
-            })->paginate(3);
             $books->withPath('?cat='.$_GET['cat']);
-
         }
         elseif(isset($_GET['order']) && isset($_GET['cat']))
         {

@@ -135,7 +135,7 @@
                                         <div class="pricing-content">
                                             <div class="price-value">
 
-                                                    <a href="/books/{{ $book->id }}"><img src='data:image/jpeg;base64,{{  base64_encode( $book->image )}}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/></a>
+                                                    {{-- <a href="/books/{{ $book->id }}"><img src='data:image/jpeg;base64,{{  base64_encode( $book->image )}}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/></a> --}}
                                                 <div class="heartpadding">
                                                     <input type="checkbox" />
                                                 </div>
@@ -194,5 +194,5 @@
         <div class="hidebox"></div>
 
 
-        
+
     </body>
