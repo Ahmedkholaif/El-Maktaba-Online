@@ -39,48 +39,55 @@
                             @endforeach
                         </tbody>
                       </table>
+                      <div>
 
-                      <div id="chartdiv"></div>
-
+                      </div>
+                      {{ strtotime('-1 year') }}
+                      <canvas id="myChart"  height="280" width="500"></canvas>
+                      {{-- <div id="chartdiv"></div> --}}
                 </div>
             </div>
         </div>
         <div class="col-md-2"></div>
     </div>
 
-    <script src="//www.amcharts.com/lib/4/core.js"></script>
-    <script src="//www.amcharts.com/lib/4/charts.js"></script>
+
     <script>
-        let chart = am4core.create(document.getElementById("chartdiv"), am4charts.XYChart);
-
-    // Add Data
-    chart.data = [{
-    "week": "week1",
-    "income": 221
-    }, {
-    "week": "week2",
-    "income": 300
-    }, {
-    "week": "week3",
-    "income": 490
-    }, {
-    "week": "week4",
-    "income": 559
-    }];
-
-    // Add category axis
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "week";
-
-    // Add value axis
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-    // Add series
-    let series = chart.series.push(new am4charts.ColumnSeries());
-    series.name = "Library Income";
-    series.dataFields.categoryX = "week";
-    series.dataFields.valueY = "income";
-
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+            label: 'Library Profits',
+            data: [{{ $week1 }}, {{ $week2 }}, {{ $week3 }}, {{ $week4 }}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 
 
     </script>
