@@ -225,3 +225,20 @@ footer p a:hover {
     color: #9f26aa;
     text-decoration: none;
 }
+
+@media (min-width: 300px) {
+    .container {
+        max-width: 400px;
+    }
+}
+
+.modal-backdrop {
+    background-color: #332a16 !important;
+    display: none !important;
+
+}
+
+.modal {
+    background-color: #201a10 !important;
+    color: white;
+}
