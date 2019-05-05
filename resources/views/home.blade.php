@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
-    
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
@@ -108,6 +108,55 @@
                             @foreach ($categories as $cat)
                             <li>
                                 <a href="{{ parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) }}?cat={{ $cat->id }}">{{$cat->name}}</a></li>
+
+                            @endforeach
+                            <!--
+                            <li role="presentation"><a href="#Section1"  role="tab" data-toggle="tab">Music</a></li>
+                            <li role="presentation"><a href="#Section2"  role="tab" data-toggle="tab">Music</a></li>
+                            <li role="presentation"><a href="#Section3"  role="tab" data-toggle="tab">kids</a></li>
+                            <li role="presentation"><a href="#Section4"  role="tab" data-toggle="tab">Bussines</a></li>
+                            <li role="presentation"><a href="#Section5"  role="tab" data-toggle="tab">Computers</a></li>
+							 -->
+
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content tabs ">
+                            <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+
+                                @foreach ($books as $book)
+
+                                <div class="col-md-4">
+                                    <div class="pricingTable">
+                                        <div class="pricingTable-header">
+                                            <h3 class="title"><a href="/books/{{ $book->id }}">{{ $book->title }}</a></h3>
+                                        </div>
+                                        <div class="pricing-content">
+                                            <div class="price-value">
+
+                                                    {{-- <a href="/books/{{ $book->id }}"><img src='data:image/jpeg;base64,{{  base64_encode( $book->image )}}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/></a> --}}
+                                                <div class="heartpadding">
+                                                    <input type="checkbox" />
+                                                </div>
+                                                <hr>
+                                                <div class="rating">
+                                                    <div class="rating__star" title="5 stars" name="1star">⭐</div>
+                                                    <div class="rating__star" title="4 stars" name="2star">⭐</div>
+                                                    <div class="rating__star" title="3 stars" name="3star">⭐</div>
+                                                    <div class="rating__star" title="2 stars" name="4star">⭐</div>
+                                                    <div class="rating__star" title="2 stars" name="5star">⭐</div>
+                                                </div>
+                                                <span class="amount">${{ $book->fees_per_day }} </span>
+                                            </div>
+                                            <ul>
+                                                <li>{{ $book->description }}</li>
+                                                <li>{{ $book->copies_number }} copies available  </li>
+
+                                            </ul>
+                                        </div>
+                                        <a href="#" class="pricingTable-signup">Lease</a>
+                                    </div>
+                                </div>
+
                                 @endforeach
                                 <!--
                                 <li role="presentation"><a href="#Section1"  role="tab" data-toggle="tab">Music</a></li>
@@ -148,6 +197,10 @@
                     </div>
                 </div>
             </div>
-            <div class="hidebox"></div>
-            
-        </body>
+        </div>
+
+        <div class="hidebox"></div>
+
+
+
+    </body>
