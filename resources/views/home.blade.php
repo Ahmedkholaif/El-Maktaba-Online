@@ -3,6 +3,23 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Parisienne|Courgette" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+
+   
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <title>Home</title>
@@ -126,38 +143,8 @@
                             <div role="tabpanel" class="tab-pane fade in active" id="Section1">
 
                                 @foreach ($books as $book)
+                                    @include('includes.one-book',['book'=> $book])
 
-                                <div class="col-md-4">
-                                    <div class="pricingTable">
-                                        <div class="pricingTable-header">
-                                            <h3 class="title"><a href="/books/{{ $book->id }}">{{ $book->title }}</a></h3>
-                                        </div>
-                                        <div class="pricing-content">
-                                            <div class="price-value">
-
-                                                    <a href="/books/{{ $book->id }}"><img src='data:image/jpeg;base64,{{  base64_encode( $book->image )}}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/></a>
-                                                <div class="heartpadding">
-                                                    <input type="checkbox" />
-                                                </div>
-                                                <hr>
-                                                <div class="rating">
-                                                    <div class="rating__star" title="5 stars" name="1star">⭐</div>
-                                                    <div class="rating__star" title="4 stars" name="2star">⭐</div>
-                                                    <div class="rating__star" title="3 stars" name="3star">⭐</div>
-                                                    <div class="rating__star" title="2 stars" name="4star">⭐</div>
-                                                    <div class="rating__star" title="2 stars" name="5star">⭐</div>
-                                                </div>
-                                                <span class="amount">${{ $book->fees_per_day }} </span>
-                                            </div>
-                                            <ul>
-                                                <li>{{ $book->description }}</li>
-                                                <li>{{ $book->copies_number }} copies available  </li>
-
-                                            </ul>
-                                        </div>
-                                        <a href="#" class="pricingTable-signup">Lease</a>
-                                    </div>
-                                </div>
 
                                 @endforeach
 
