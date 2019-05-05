@@ -39,7 +39,7 @@ Route::resource('category','CategoriesController');
 Route::post('/books/{id}', 'BooksController@saveRating')->name('books.saveRating');
 
 
-Route::any('/search',function(){
+Route::match(['get', 'post'],'/search',function(){
     $query = Input::get ( 'query' );
     $books = Book::where('title','LIKE','%'.$query.'%')->orWhere('author','LIKE','%'.$query.'%')->get();
     if(count($books) > 0)
