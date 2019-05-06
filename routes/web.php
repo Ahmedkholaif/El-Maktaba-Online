@@ -32,6 +32,7 @@ Route::resource('/books', 'BooksController')->middleware('auth');
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
 
 
+Route::post('/lease_book', 'BooksController@leaseBook')->name('lease_book')->middleware('auth');
 Route::get('/borrowed_books', 'BooksController@borrowedBooks')->name('borrowedBooks')->middleware('auth');
 Route::get('/favorite_books', 'BooksController@favoriteBooks')->name('favoriteBooks')->middleware('auth');
 Route::get('/admin/Borrowed_Books', 'BooksController@adminBorrowedBooks')

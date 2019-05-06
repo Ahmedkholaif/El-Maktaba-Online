@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
 
-   
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
@@ -149,7 +149,38 @@
 
 
                                 @endforeach
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
 
+
+
+            <form method="POST" action="{{ route('lease_book', ['book' => $book]) }}">
+                <div class="modal-body">
+                        <div class="form-group">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <label for="exampleInputEmail1">Number of Leaseing days</label>
+                                <input type="number" name="number_of_days" class="form-control" id="no_of_days">
+                                <input type="hidden" name="fees_per_day" value="{{ $book->fees_per_day }}">
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                              </div>
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Lease</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -183,5 +214,5 @@
         <div class="hidebox"></div>
 
 
-        
+
 </body>

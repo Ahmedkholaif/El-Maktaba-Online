@@ -181,8 +181,8 @@ class BooksController extends Controller
 
         if(!isset($_GET['order']) && !isset($_GET['cat']))
         {
-            $books = DB::table('books')
-            ->select('books.*')
+            $books = Book::
+            select('books.*')
             ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
             ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
             ->groupBy('books.id')
@@ -286,6 +286,22 @@ class BooksController extends Controller
 
 
     }
+
+    public function leaseBook(Request $request){
+        $leased_book = new Borrowed_Book;
+        $leased_book->number_of_days = $request->number_of_days;
+        $leased_book->fees_per_day = $request->fees_per_day;
+        $leased_book->book_id = $request->book_id;
+        $leased_book->user_id=auth()->user()->id;
+        if($leased_book->save()){
+            Book::find($request->book_id)->decrement('copies_number',1);
+        }
+        return redirect()->back();
+
+
+
+    }
+
 
     public function search (){
 
