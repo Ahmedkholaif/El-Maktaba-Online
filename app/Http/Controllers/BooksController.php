@@ -177,6 +177,7 @@ class BooksController extends Controller
 
     public function userHomeBooks()
     {
+        return 'hello world';
         $categories = Category::get();
 
         // if(!isset($_GET['order']) && !isset($_GET['cat']))
