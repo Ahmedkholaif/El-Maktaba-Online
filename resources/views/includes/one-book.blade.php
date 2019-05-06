@@ -1,8 +1,4 @@
 
-<head>
-
-<head>
-<body>
                                 <div class="col-md-4">
                                     <div class="pricingTable">
                                         <div class="pricingTable-header">
@@ -74,5 +70,3 @@
   
     @endif 
 
-
-</body>                                
