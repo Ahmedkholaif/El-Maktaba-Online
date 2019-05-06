@@ -179,47 +179,47 @@ class BooksController extends Controller
     {
         $categories = Category::get();
 
-        if(!isset($_GET['order']) && !isset($_GET['cat']))
-        {
+        // if(!isset($_GET['order']) && !isset($_GET['cat']))
+        // {
             $books = Book::
-            select('books.*')
-            ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
-            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-            ->groupBy('books.id')
-            ->orderBy('average_rating', 'desc')
-            ->paginate(3);
-        }
-        elseif(isset($_GET['order']) && !isset($_GET['cat']))
-        {
-            $books = Book::latest()->paginate(3);
-            $books->withPath('?order=latest');
-        }
-        elseif(!isset($_GET['order']) && isset($_GET['cat']))
-        {
+            // select('books.*')
+            // ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
+            // ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+            // ->groupBy('books.id')
+            // ->orderBy('average_rating', 'desc')
+            paginate(3);
+        // }
+        // elseif(isset($_GET['order']) && !isset($_GET['cat']))
+        // {
+        //     $books = Book::latest()->paginate(3);
+        //     $books->withPath('?order=latest');
+        // }
+        // elseif(!isset($_GET['order']) && isset($_GET['cat']))
+        // {
 
-            $books = Book::whereHas('categories', function($q)
-            {
-                $q->where('category_id', '=', $_GET['cat']);
+        //     $books = Book::whereHas('categories', function($q)
+        //     {
+        //         $q->where('category_id', '=', $_GET['cat']);
 
-            })
-            ->select('books.*')
-            ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
-            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-            ->groupBy('books.id')
-            ->orderBy('average_rating', 'desc')
-            ->paginate(3);
+        //     })
+        //     ->select('books.*')
+        //     ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
+        //     ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+        //     ->groupBy('books.id')
+        //     ->orderBy('average_rating', 'desc')
+        //     ->paginate(3);
 
-            $books->withPath('?cat='.$_GET['cat']);
-        }
-        elseif(isset($_GET['order']) && isset($_GET['cat']))
-        {
-            $books = Book::whereHas('categories', function($q)
-            {
-                $q->where('category_id', '=', $_GET['cat']);
+        //     $books->withPath('?cat='.$_GET['cat']);
+        // }
+        // elseif(isset($_GET['order']) && isset($_GET['cat']))
+        // {
+        //     $books = Book::whereHas('categories', function($q)
+        //     {
+        //         $q->where('category_id', '=', $_GET['cat']);
 
-            })->latest()->paginate(3);
-            $books->withPath('?cat='.$_GET['cat'].'&order=latest');
-        }
+        //     })->latest()->paginate(3);
+        //     $books->withPath('?cat='.$_GET['cat'].'&order=latest');
+        // }
 
         return view('home',compact('books','categories','_GET'));
     }
