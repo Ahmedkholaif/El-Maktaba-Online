@@ -9,7 +9,7 @@
 
                                                     <a href="/books/{{ $book->id }}"><img src='data:image/jpeg;base64,{{  base64_encode( $book->image )}}' alt="Circle Image" class="img-raised rounded-circle img-fluid"/></a>
                                                 <div id="heartpadding-{{$book->id}}">
-                                              
+
                                                 </div>
                                                 <hr>
                                                 <div class="rating">
@@ -30,43 +30,51 @@
 
                                             </ul>
                                         </div>
-                                        <a href="#" class="pricingTable-signup">Lease</a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            Lease
+                                          </button>
+                                        <!-- Button trigger modal -->
+
+
+
                                     </div>
                                 </div>
 
 
 
-  
- 
- 
+
+
+
  @if (auth()->user()->favorite_books()->get()->contains($book))
  <script>
-   
+
     console.log( "favourite!" );
 
     document.getElementById('heartpadding-{{$book->id}}').innerHTML +=  '<span style="font-size: 48px; color: red; "> <i class="far fa-heart addFav" id="{{$book->id}}" ></i></span> <span style="font-size: 48px; color: red;"> <i class="fas fa-heart removeFav" id="{{$book->id}}" ></i> </span>';
     var $addFav = $(".addFav#{{$book->id}}");
 
      $addFav.hide();
-   
 
 
- </script>  
+
+ </script>
  @else
  <script>
-   
+
    console.log( "non favourite!" );
 
    document.getElementById('heartpadding-{{$book->id}}').innerHTML +=  '<span style="font-size: 48px; color: red;"> <i class="fas fa-heart removeFav" id="{{$book->id}}" ></i> </span> <span style="font-size: 48px; color: red; "> <i class="far fa-heart addFav" id="{{$book->id}}" ></i></span> ';
    var $removeFav = $(".removeFav#{{$book->id}}");
 
     $removeFav.hide();
-  
 
 
-</script>  
+
+</script>
 
 
-  
-    @endif 
 
+    @endif
+
+
+</body>
