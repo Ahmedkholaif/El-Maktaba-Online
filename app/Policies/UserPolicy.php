@@ -21,6 +21,7 @@ class UserPolicy
         //
     }
 
+
     /**
      * Determine whether the user can create models.
      *
@@ -39,9 +40,13 @@ class UserPolicy
      * @param  \App\User  $model
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update_profile(User $user, User $model)
     {
-        //
+        return $user->id == $model->id ; 
+    }
+    protected function deny( $message = "We Don't do That here " )
+    {
+        throw new AuthorizationException( $message );
     }
 
     /**

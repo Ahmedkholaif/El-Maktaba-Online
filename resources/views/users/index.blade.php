@@ -18,7 +18,7 @@
             <th scope="col">Phone</th>
             <th scope="col">National ID</th>
             <th scope="col">Admin</th>
-            <th scope="col">Active</th>
+            <th scope="col">Status</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -32,8 +32,8 @@
         <td>{{$user->user_name}}</td>
         <td>{{$user->phone}}</td>
         <td>{{$user->national_id}}</td>
-        <td><input type="checkbox"  {{$user->is_admin == 1 ? 'checked' : '' }} /> </td>
-        <td><input type="checkbox"  {{$user->is_active == 1 ? 'checked' : '' }} /> </td>
+        <td><p>  {{$user->is_admin == 1 ? 'Admin' : '-' }} </p> </td>
+        <td><p> {{$user->is_active == 1 ? 'Active' : 'InActive' }} </p> </td>
         <td class="flex flex-row" style="display:flex;flex-direction:row" >
             {{-- @can('update',$user ) --}}
             {{-- @include('users.edit',['user'=>$user]) --}}
