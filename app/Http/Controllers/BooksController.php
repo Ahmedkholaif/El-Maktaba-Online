@@ -177,8 +177,8 @@ class BooksController extends Controller
 
     public function userHomeBooks()
     {
-        return 'hello world';
-        $categories = Category::get();
+        // return 'hello world';
+        // $categories = Category::get();
 
         // if(!isset($_GET['order']) && !isset($_GET['cat']))
         // {
@@ -222,7 +222,7 @@ class BooksController extends Controller
         //     $books->withPath('?cat='.$_GET['cat'].'&order=latest');
         // }
 
-        return view('home',compact('books','categories','_GET'));
+        return view('home',compact('books'));
     }
 
     public function adminBorrowedBooks()
