@@ -196,13 +196,17 @@ class BooksController extends Controller
         }
         elseif(!isset($_GET['order']) && isset($_GET['cat']))
         {
-            $books = DB::table('books')
-            ->join('book__categories', function ($join) {
-                $join->on('books.id', '=', 'book__categories.book_id')
-                    ->where('book__categories.category_id', '=', $_GET['cat']);
+
+            $books = Book::whereHas('categories', function($q)
+            {
+                $q->where('category_id', '=', $_GET['cat']);
+
             })
-            ->leftJoin('ratings','books.id', '=', 'ratings.rateable_id')
-            ->orderBy('rating', 'desc')
+            ->select('books.*')
+            ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
+            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+            ->groupBy('books.id')
+            ->orderBy('average_rating', 'desc')
             ->paginate(3);
 
             $books->withPath('?cat='.$_GET['cat']);
