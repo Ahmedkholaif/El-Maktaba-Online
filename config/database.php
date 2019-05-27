@@ -79,6 +79,21 @@ return [
             // Server: remotemysql.com
 
             // Port: 3306
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        'remotemysql2'=>[
+            'driver'    => 'mysql',
+            'host'      => env('DB_HOST', 'remotemysql.com'),
+            'database'  => env('DB_DATABASE', 'xGTsc3qdg8'),
+            'username'  => env('DB_USERNAME', 'xGTsc3qdg8'),
+            // 'port' => '3306',
+            'password'  => env('DB_PASSWORD', 'b7rWYtxQPy'),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
         ],
 
         'pgsql' => [
