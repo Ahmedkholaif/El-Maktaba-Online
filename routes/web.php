@@ -26,7 +26,7 @@ Route::get('/users/{profile}', 'UsersController@profile')
 Route::put('/users/{profile}/update','UsersController@update_profile')
 ->name('users.update_profile')->middleware('auth')->middleware('can:update_profile,profile');
 
-Route::resource('/users', 'UsersController') ;//->except('show')->middleware('auth')->middleware('admin');
+Route::resource('/users', 'UsersController')->except('show')->middleware('auth')->middleware('admin');
 Route::resource('/books', 'BooksController')->middleware('auth');
 
 // Route::resource('books.comments', 'CommentsController')->middleware('auth');
