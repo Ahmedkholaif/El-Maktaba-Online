@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'remotemysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,11 +43,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => 'remotemysql.com',
-            'port' => '3306',
-            'database' => 'uz6AkeYmz7',
-            'username' => 'uz6AkeYmz7',
-            'password' => 'Z9nWa52ba7',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3307'),
+            'database' => env('DB_DATABASE', 'mktaba'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -58,6 +58,18 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+        'remotemysql' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_HOST', 'https://remotemysql.com'),
+            'database'  => env('DB_DATABASE', 'uz6AkeYmz7'),
+            'username'  => env('DB_USERNAME', 'uz6AkeYmz7'),
+            'port' => '3306',
+            'password'  => env('DB_PASSWORD', 'Z9nWa52ba7'),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
         ],
 
         'pgsql' => [
