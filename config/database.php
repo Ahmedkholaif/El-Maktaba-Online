@@ -61,17 +61,16 @@ return [
         ],
         'remotemysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'https://remotemysql.com'),
-            'database'  => env('DB_DATABASE', 'uz6AkeYmz7'),
-            'username'  => env('DB_USERNAME', 'uz6AkeYmz7'),
+            'host'      => env('DB_HOST', 'remotemysql.com'),
+            'database'  => env('DB_DATABASE', 'xGTsc3qdg8'),
+            'username'  => env('DB_USERNAME', 'xGTsc3qdg8'),
             'port' => '3306',
-            'password'  => env('DB_PASSWORD', 'Z9nWa52ba7'),
+            'password'  => env('DB_PASSWORD', 'b7rWYtxQPy'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
         ],
-
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => $DATABASE_URL['host'],
