@@ -183,10 +183,7 @@ class BooksController extends Controller
         {
             $books = Book::
             select('books.*')
-            ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
-            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-            ->groupBy('books.id')
-            ->orderBy('average_rating', 'desc')
+            ->orderBy('title', 'desc')
             ->paginate(3);
         }
         elseif(isset($_GET['order']) && !isset($_GET['cat']))
@@ -203,10 +200,7 @@ class BooksController extends Controller
 
             })
             ->select('books.*')
-            ->leftJoin('ratings', 'books.id', '=', 'ratings.rateable_id')
-            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-            ->groupBy('books.id')
-            ->orderBy('average_rating', 'desc')
+            
             ->paginate(3);
 
             $books->withPath('?cat='.$_GET['cat']);
